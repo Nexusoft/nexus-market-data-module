@@ -23,4 +23,9 @@ export default {
       },
     ],
   },
+  resolve: {
+    alias: {
+      react$: path.resolve(__dirname, 'src/react.js'),
+    },
+  },
 };

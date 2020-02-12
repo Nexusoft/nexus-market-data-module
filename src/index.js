@@ -1,10 +1,6 @@
 import configureStore from './configureStore';
 import App from './App';
-import {
-  initialize,
-  updateCoreInfo,
-  updateTheme,
-} from './actions/actionCreators';
+import { initialize, updateCoreInfo, updateTheme } from './actions/general';
 
 const store = configureStore();
 

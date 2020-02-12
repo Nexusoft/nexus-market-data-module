@@ -1,7 +1,7 @@
 {
-  "name": "_dev_react_redux_module_example",
-  "displayName": "React Redux Module Development",
+  "name": "_dev_market_data",
+  "displayName": "Market Data Development",
   "type": "app",
   "entry": "http://localhost:24011/dev.html",
-  "icon": "dist/react.svg"
+  "icon": "dist/icons/chart.svg"
 }

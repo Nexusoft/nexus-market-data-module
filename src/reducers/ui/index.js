@@ -1,4 +1,4 @@
-import inputValue from './inputValue';
+import market from './market';
 
 const {
   libraries: {
@@ -7,5 +7,5 @@ const {
 } = NEXUS;
 
 export default combineReducers({
-  inputValue,
+  market,
 });

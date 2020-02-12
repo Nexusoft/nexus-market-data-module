@@ -1,13 +1,20 @@
 {
-  "name": "react_redux_module_example",
-  "displayName": "React Redux Module",
-  "version": "0.2.0",
+  "name": "market_data",
+  "displayName": "Market Data",
+  "version": "1.0.0",
   "targetWalletVersion": "2.2.0",
-  "description": "This is an example of how a Nexus Module can be built with React & Redux, showcasing some interesting features of Nexus modules",
+  "description": "Market Data of Nexus trading on major exchanges",
   "type": "app",
   "entry": "dist/index.html",
-  "icon": "dist/react.svg",
-  "files": ["dist/index.html", "dist/react.svg", "dist/js/app.js"],
+  "icon": "dist/icons/chart.svg",
+  "files": [
+    "dist/index.html",
+    "dist/icons/chart.svg",
+    "dist/js/app.js",
+    "dist/icons/syncing.svg",
+    "dist/icons/BittrexLogo.png",
+    "dist/icons/BINANCE.png"
+  ],
   "author": {
     "name": "Krysto",
     "email": "quy.hoang@nexus.io"
