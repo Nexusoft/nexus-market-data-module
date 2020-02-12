@@ -78,8 +78,14 @@ const StatusIcon = styled.div(
 );
 
 @connect(
-  state => ({
-    ...state.ui.market,
+  ({
+    ui: {
+      market: { loaded, binance, bittrex },
+    },
+  }) => ({
+    loaded,
+    binance,
+    bittrex,
   }),
   {
     binanceDepthLoader,

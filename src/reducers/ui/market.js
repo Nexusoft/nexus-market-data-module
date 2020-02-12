@@ -27,11 +27,7 @@ const initialState = {
     candlesticks: [],
   },
   loaded: false,
-  arbAlertList: [],
-  threshold: 0.0002,
-  tradeVolume: 5,
 };
-// TODO: deprecate when we move to a new alert system
 export default (state = initialState, action) => {
   switch (action.type) {
     case TYPE.BITTREX_24:
