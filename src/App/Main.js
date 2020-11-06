@@ -118,7 +118,8 @@ class Main extends React.Component {
     this.props.binance24hrInfo();
     this.props.bittrex24hrInfo();
 
-    this.props.binanceWalletStatus();
+    // binance getAllAsset seems to be deprecated
+    // this.props.binanceWalletStatus();
     this.props.bittrexWalletStatus();
   };
 
@@ -127,11 +128,11 @@ class Main extends React.Component {
    *
    * @memberof Market
    */
-  formatBuyData = array => {
+  formatBuyData = (array) => {
     let newQuantity = 0;
     let prevQuantity = 0;
     let finnishedArray = array
-      .map(e => {
+      .map((e) => {
         newQuantity = prevQuantity + e.Volume;
         prevQuantity = newQuantity;
 
@@ -148,7 +149,7 @@ class Main extends React.Component {
           };
         }
       })
-      .filter(e => e.x > 0);
+      .filter((e) => e.x > 0);
 
     return finnishedArray;
   };
@@ -165,7 +166,7 @@ class Main extends React.Component {
     let prevQuantity = 0;
     let finnishedArray = array
       .sort((a, b) => b.Rate - a.Rate)
-      .map(e => {
+      .map((e) => {
         newQuantity = prevQuantity + e.Volume;
         prevQuantity = newQuantity;
         if (e.Price < array[0].Price * 0.05) {
@@ -181,7 +182,7 @@ class Main extends React.Component {
           };
         }
       })
-      .filter(e => e.x > 0);
+      .filter((e) => e.x > 0);
 
     return finnishedArray;
   }
@@ -307,11 +308,11 @@ class Main extends React.Component {
                   // );
                 }}
               />
-              <Tooltip.Trigger
+              {/* <Tooltip.Trigger
                 tooltip={this.returnWalletStatusTooltip(binance.walletStatus)}
               >
                 <StatusIcon status={binance.walletStatus} />
-              </Tooltip.Trigger>
+              </Tooltip.Trigger> */}
 
               {this.oneDayinfo('binance')}
               <MarketInfoContainer>

@@ -6,7 +6,7 @@ const {
 
 export const marketDataLoaded = () => ({ type: TYPE.MARKET_DATA_LOADED });
 
-export const binance24hrInfo = () => async dispatch => {
+export const binance24hrInfo = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
@@ -22,7 +22,7 @@ export const binance24hrInfo = () => async dispatch => {
   dispatch({ type: TYPE.BINANCE_24, payload: res });
 };
 
-export const bittrex24hrInfo = () => async dispatch => {
+export const bittrex24hrInfo = () => async (dispatch) => {
   const result = await proxyRequest(
     'https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-nxs',
     { method: 'GET' }
@@ -42,7 +42,7 @@ export const bittrex24hrInfo = () => async dispatch => {
 
 // action creators for the market depth calls
 
-export const binanceDepthLoader = () => async dispatch => {
+export const binanceDepthLoader = () => async (dispatch) => {
   const { data } = await proxyRequest(
     'https://api.binance.com/api/v1/depth?symbol=NXSBTC',
     {
@@ -51,7 +51,7 @@ export const binanceDepthLoader = () => async dispatch => {
   );
   const res = {
     sell: data.asks
-      .map(ele => {
+      .map((ele) => {
         return {
           Volume: parseFloat(ele[1]),
           Price: parseFloat(ele[0]),
@@ -60,7 +60,7 @@ export const binanceDepthLoader = () => async dispatch => {
       .sort((a, b) => b.Price - a.Price)
       .reverse(),
     buy: data.bids
-      .map(ele => {
+      .map((ele) => {
         return {
           Volume: parseFloat(ele[1]),
           Price: parseFloat(ele[0]),
@@ -73,14 +73,14 @@ export const binanceDepthLoader = () => async dispatch => {
   dispatch(marketDataLoaded());
 };
 
-export const binanceWalletStatus = () => async dispatch => {
+export const binanceWalletStatus = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
     'https://www.binance.com/assetWithdraw/getAllAsset.html',
     { method: 'GET' }
   );
-  const nxsStatus = data.filter(element => element.assetCode === 'NXS')[0];
+  const nxsStatus = data.filter((element) => element.assetCode === 'NXS')[0];
   const walletOnline = nxsStatus.enableCharge && nxsStatus.enableWithdraw;
   //Add stuff to catch error and make this a bit more robust.
   dispatch({
@@ -89,7 +89,7 @@ export const binanceWalletStatus = () => async dispatch => {
   });
 };
 
-export const bittrexWalletStatus = () => async dispatch => {
+export const bittrexWalletStatus = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
@@ -97,7 +97,7 @@ export const bittrexWalletStatus = () => async dispatch => {
     { method: 'GET' }
   );
   const nxsStatus = data.result.filter(
-    element => element.Health.Currency === 'NXS'
+    (element) => element.Health.Currency === 'NXS'
   )[0];
   const walletOnline = nxsStatus.Health.IsActive;
 
@@ -107,7 +107,7 @@ export const bittrexWalletStatus = () => async dispatch => {
   });
 };
 
-export const bittrexDepthLoader = () => async dispatch => {
+export const bittrexDepthLoader = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
@@ -118,12 +118,12 @@ export const bittrexDepthLoader = () => async dispatch => {
   const res = {
     buy: data.result.buy
       .sort((a, b) => b.Rate - a.Rate)
-      .map(e => {
+      .map((e) => {
         return { Volume: e.Quantity, Price: e.Rate };
       }),
     sell: data.result.sell
       .sort((a, b) => b.Rate - a.Rate)
-      .map(e => {
+      .map((e) => {
         return { Volume: e.Quantity, Price: e.Rate };
       })
       .reverse(),
@@ -134,7 +134,7 @@ export const bittrexDepthLoader = () => async dispatch => {
 
 // actions creators for candlestick data
 
-export const binanceCandlestickLoader = () => async dispatch => {
+export const binanceCandlestickLoader = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
@@ -144,7 +144,7 @@ export const binanceCandlestickLoader = () => async dispatch => {
 
   const res = data
     .reverse()
-    .map(e => {
+    .map((e) => {
       return {
         x: new Date(e[0]),
         open: parseFloat(e[1]),
@@ -165,7 +165,7 @@ export const binanceCandlestickLoader = () => async dispatch => {
   dispatch(marketDataLoaded());
 };
 
-export const bittrexCandlestickLoader = () => async dispatch => {
+export const bittrexCandlestickLoader = () => async (dispatch) => {
   const {
     data,
   } = await proxyRequest(
@@ -175,7 +175,7 @@ export const bittrexCandlestickLoader = () => async dispatch => {
 
   const res = data.result
     .reverse()
-    .map(e => {
+    .map((e) => {
       return {
         x: new Date(e.T),
         open: e.O,
