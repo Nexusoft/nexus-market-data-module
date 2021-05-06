@@ -7,15 +7,14 @@ const {
     emotion: {
       createCache,
       core: { CacheProvider },
-      theming: { ThemeProvider },
     },
   },
-  utilities: { color },
+  components: { ThemeController },
 } = NEXUS;
 
 const emotionCache = createCache({ container: document.head });
 
-@connect(state => ({
+@connect((state) => ({
   initialized: state.initialized,
   theme: state.theme,
 }))
@@ -24,16 +23,11 @@ class App extends React.Component {
     const { initialized, theme } = this.props;
     if (!initialized) return null;
 
-    const themeWithMixer = {
-      ...theme,
-      mixer: color.getMixer(theme.background, theme.foreground),
-    };
-
     return (
       <CacheProvider value={emotionCache}>
-        <ThemeProvider theme={themeWithMixer}>
+        <ThemeController theme={theme}>
           <Main />
-        </ThemeProvider>
+        </ThemeController>
       </CacheProvider>
     );
   }
