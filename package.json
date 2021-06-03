@@ -3,30 +3,25 @@
   "version": "0.2.0",
   "description": "This is an example of how a Nexus Module can be built with React",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-decorators": "^7.8.3",
-    "@babel/plugin-proposal-do-expressions": "^7.8.3",
-    "@babel/plugin-proposal-export-default-from": "^7.8.3",
-    "@babel/plugin-proposal-export-namespace-from": "^7.8.3",
-    "@babel/plugin-transform-react-constant-elements": "^7.8.3",
-    "@babel/plugin-transform-react-inline-elements": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.2",
+    "@babel/plugin-transform-react-constant-elements": "^7.13.13",
+    "@babel/plugin-transform-react-inline-elements": "^7.12.13",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/register": "^7.13.16",
+    "babel-loader": "^8.2.2",
     "babel-plugin-dev-expression": "^0.2.2",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-transform-react-pure-class-to-function": "^1.0.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "cross-env": "^7.0.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.3"
+    "cross-env": "^7.0.3",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.babel.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack-dev.config.babel.js"
-  },
-  "dependencies": {}
+    "dev": "cross-env NODE_ENV=development webpack serve --config webpack-dev.config.babel.js"
+  }
 }
