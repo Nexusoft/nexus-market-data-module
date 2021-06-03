@@ -9,7 +9,7 @@ const devPlugins = [];
 
 const prodPlugins = ['babel-plugin-dev-expression', ...reactOptimizePreset];
 
-module.exports = function(api) {
+module.exports = function (api) {
   const development = process.env.NODE_ENV !== 'production';
   api.cache(true);
 
@@ -18,8 +18,8 @@ module.exports = function(api) {
       [
         '@babel/preset-env',
         {
-          targets: { electron: '4.0.5' },
-          useBuiltIns: 'usage',
+          // Replace this with the Electron version that your target Nexus Wallet version uses
+          targets: { electron: '13.0.1' },
         },
       ],
       ['@babel/preset-react', { development }],
