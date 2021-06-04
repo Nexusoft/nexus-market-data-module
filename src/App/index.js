@@ -3,7 +3,7 @@ import Main from './Main';
 const {
   libraries: {
     React,
-    ReactRedux: { connect },
+    ReactRedux: { useSelector },
     emotion: {
       createCache,
       core: { CacheProvider },
@@ -12,25 +12,18 @@ const {
   components: { ThemeController },
 } = NEXUS;
 
-const emotionCache = createCache({ container: document.head });
+const emotionCache = createCache({ container: document.head, key: 'emo' });
 
-@connect((state) => ({
-  initialized: state.initialized,
-  theme: state.theme,
-}))
-class App extends React.Component {
-  render() {
-    const { initialized, theme } = this.props;
-    if (!initialized) return null;
+export default function App() {
+  const initialized = useSelector((state) => state.initialized);
+  const theme = useSelector((state) => state.theme);
+  if (!initialized) return null;
 
-    return (
-      <CacheProvider value={emotionCache}>
-        <ThemeController theme={theme}>
-          <Main />
-        </ThemeController>
-      </CacheProvider>
-    );
-  }
+  return (
+    <CacheProvider value={emotionCache}>
+      <ThemeController theme={theme}>
+        <Main />
+      </ThemeController>
+    </CacheProvider>
+  );
 }
-
-export default App;
