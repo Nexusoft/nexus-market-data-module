@@ -11,7 +11,7 @@ import {
 const {
   libraries: {
     React,
-    ReactRedux: { connect },
+    ReactRedux: { useSelector },
     emotion: { styled },
   },
 } = NEXUS;
