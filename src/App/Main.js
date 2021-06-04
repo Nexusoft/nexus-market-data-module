@@ -77,27 +77,6 @@ const StatusIcon = styled.div(
   }
 );
 
-@connect(
-  ({
-    ui: {
-      market: { loaded, binance, bittrex },
-    },
-  }) => ({
-    loaded,
-    binance,
-    bittrex,
-  }),
-  {
-    binanceDepthLoader,
-    bittrexDepthLoader,
-    binance24hrInfo,
-    bittrex24hrInfo,
-    binanceCandlestickLoader,
-    bittrexCandlestickLoader,
-    binanceWalletStatus,
-    bittrexWalletStatus,
-  }
-)
 class Main extends React.Component {
   componentDidMount() {
     this.refresher();
@@ -361,4 +340,25 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+const mapStateToProps = ({
+  ui: {
+    market: { loaded, binance, bittrex },
+  },
+}) => ({
+  loaded,
+  binance,
+  bittrex,
+});
+
+const actions = {
+  binanceDepthLoader,
+  bittrexDepthLoader,
+  binance24hrInfo,
+  bittrex24hrInfo,
+  binanceCandlestickLoader,
+  bittrexCandlestickLoader,
+  binanceWalletStatus,
+  bittrexWalletStatus,
+};
+
+export default connect(mapStateToProps, actions)(Main);
