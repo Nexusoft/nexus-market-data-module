@@ -1,4 +1,5 @@
 // import { shell } from 'electron';
+import { connect } from 'react-redux';
 
 import {
   binanceDepthLoader,
@@ -18,7 +19,6 @@ import Candlestick from './Chart/Candlestick';
 const {
   libraries: {
     React,
-    ReactRedux: { connect },
     emotion: { styled },
   },
   components: { GlobalStyles, Panel, Icon, Tooltip, Button },

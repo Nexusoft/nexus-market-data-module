@@ -1,10 +1,6 @@
-import market from './market';
+import { combineReducers } from 'redux';
 
-const {
-  libraries: {
-    Redux: { combineReducers },
-  },
-} = NEXUS;
+import market from './market';
 
 export default combineReducers({
   market,

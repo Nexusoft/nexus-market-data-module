@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 import {
   VictoryChart,
   VictoryAxis,
@@ -10,7 +12,6 @@ import {
 const {
   libraries: {
     React,
-    ReactRedux: { useSelector },
     emotion: { styled },
   },
 } = NEXUS;
