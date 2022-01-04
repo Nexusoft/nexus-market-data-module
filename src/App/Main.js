@@ -1,4 +1,5 @@
 // import { shell } from 'electron';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -18,7 +19,6 @@ import Candlestick from './Chart/Candlestick';
 
 const {
   libraries: {
-    React,
     emotion: { styled },
   },
   components: { GlobalStyles, Panel, Icon, Tooltip, Button },
@@ -77,7 +77,7 @@ const StatusIcon = styled.div(
   }
 );
 
-class Main extends React.Component {
+class Main extends Component {
   componentDidMount() {
     this.refresher();
   }

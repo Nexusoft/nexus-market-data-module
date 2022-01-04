@@ -4,7 +4,6 @@ import Main from './Main';
 
 const {
   libraries: {
-    React,
     emotion: {
       createCache,
       core: { CacheProvider },

@@ -12,7 +12,6 @@ import {
 
 const {
   libraries: {
-    React,
     emotion: { styled },
   },
 } = NEXUS;

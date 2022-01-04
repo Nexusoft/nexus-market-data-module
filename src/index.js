@@ -1,3 +1,4 @@
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import configureStore from './configureStore';
@@ -7,7 +8,6 @@ import { initialize, updateCoreInfo, updateTheme } from './actions/general';
 const store = configureStore();
 
 const {
-  libraries: { React, ReactDOM },
   utilities: { onceInitialize, onCoreInfoUpdated, onThemeUpdated },
 } = NEXUS;
 
@@ -23,7 +23,7 @@ onThemeUpdated((theme) => {
   store.dispatch(updateTheme(theme));
 });
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <App />
   </Provider>,
