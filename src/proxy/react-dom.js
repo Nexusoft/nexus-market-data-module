@@ -5,21 +5,29 @@ const {
 } = NEXUS;
 
 const {
-  render,
-  hydrate,
-  unmountComponentAtNode,
-  findDOMNode,
   createPortal,
+  findDOMNode,
+  flushSync,
+  hydrate,
+  render,
+  unmountComponentAtNode,
   unstable_batchedUpdates,
+  unstable_createPortal,
+  unstable_renderSubtreeIntoContainer,
+  version,
 } = ReactDOM;
 
 export {
-  render,
-  hydrate,
-  unmountComponentAtNode,
-  findDOMNode,
   createPortal,
+  findDOMNode,
+  flushSync,
+  hydrate,
+  render,
+  unmountComponentAtNode,
   unstable_batchedUpdates,
+  unstable_createPortal,
+  unstable_renderSubtreeIntoContainer,
+  version,
 };
 
-export default ReactDOM;
+export default ReactDOM.default;
