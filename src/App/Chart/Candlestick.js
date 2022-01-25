@@ -19,7 +19,7 @@ const MarketDepthInner = styled.div({
 });
 
 export default function Candlestick({ data }) {
-  const theme = useSelector((state) => state.theme);
+  const theme = useSelector((state) => state.nexus.theme);
   return (
     <MarketDepthInner>
       <VictoryChart

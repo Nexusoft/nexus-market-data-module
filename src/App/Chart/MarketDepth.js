@@ -20,7 +20,7 @@ const MarketDepthInner = styled.div({
 });
 
 export default function MarketDepth({ chartData, chartSellData }) {
-  const theme = useSelector((state) => state.theme);
+  const theme = useSelector((state) => state.nexus.theme);
   return (
     <MarketDepthInner>
       <VictoryChart
