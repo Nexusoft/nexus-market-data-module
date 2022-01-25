@@ -1,15 +1,28 @@
+import { INITIALIZE } from 'nexus-module';
 import { combineReducers } from 'redux';
+import { walletDataReducer } from 'nexus-module';
 
-import initialized from './initialized';
-import theme from './theme';
-import coreInfo from './coreInfo';
 import ui from './ui';
 
 export default function createReducer() {
-  return combineReducers({
-    initialized,
-    theme,
-    coreInfo,
-    ui,
-  });
+  return function (state, action) {
+    const baseReducer = combineReducers({
+      ui,
+      nexus: walletDataReducer,
+    });
+    const newState = baseReducer(state, action);
+
+    if (action.type === INITIALIZE) {
+      const { storageData, moduleState } = action.payload;
+      if (storageData || moduleState) {
+        return {
+          ...newState,
+          ...action.payload.storageData,
+          ...action.payload.moduleState,
+        };
+      }
+    }
+
+    return newState;
+  };
 }

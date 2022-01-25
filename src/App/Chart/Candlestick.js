@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
 
 import {
   VictoryChart,
@@ -8,12 +9,6 @@ import {
   VictoryLabel,
   VictoryTooltip,
 } from 'victory';
-
-const {
-  libraries: {
-    emotion: { styled },
-  },
-} = NEXUS;
 
 const MarketDepthInner = styled.div({
   position: 'relative',

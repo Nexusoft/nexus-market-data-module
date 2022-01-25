@@ -1,5 +1,5 @@
 {
-  "name": "react_module_example",
+  "name": "market_data_module",
   "version": "0.2.0",
   "description": "This is an example of how a Nexus Module can be built with React",
   "devDependencies": {
@@ -25,6 +25,7 @@
     "dev": "cross-env NODE_ENV=development webpack serve --config webpack-dev.config.babel.js"
   },
   "dependencies": {
+    "nexus-module": "^1.0.0-alpha.7",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",

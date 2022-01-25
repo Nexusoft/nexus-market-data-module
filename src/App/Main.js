@@ -1,6 +1,15 @@
 // import { shell } from 'electron';
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from '@emotion/styled';
+import {
+  GlobalStyles,
+  Panel,
+  Icon,
+  Tooltip,
+  Button,
+  showNotification,
+} from 'nexus-module';
 
 import {
   binanceDepthLoader,
@@ -16,14 +25,6 @@ import {
 // Internal Local Dependencies
 import MarketDepth from './Chart/MarketDepth';
 import Candlestick from './Chart/Candlestick';
-
-const {
-  libraries: {
-    emotion: { styled },
-  },
-  components: { GlobalStyles, Panel, Icon, Tooltip, Button },
-  utilities: { showNotification },
-} = NEXUS;
 
 const ExchangeUnitContainer = styled.div({
   width: '100%',

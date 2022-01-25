@@ -1,29 +1,15 @@
 import { useSelector } from 'react-redux';
+import { ModuleWrapper } from 'nexus-module';
 
 import Main from './Main';
 
-const {
-  libraries: {
-    emotion: {
-      createCache,
-      core: { CacheProvider },
-    },
-  },
-  components: { ThemeController },
-} = NEXUS;
-
-const emotionCache = createCache({ container: document.head, key: 'emo' });
-
 export default function App() {
-  const initialized = useSelector((state) => state.initialized);
-  const theme = useSelector((state) => state.theme);
-  if (!initialized) return null;
+  const initialized = useSelector((state) => state.nexus.initialized);
+  const theme = useSelector((state) => state.nexus.theme);
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeController theme={theme}>
-        <Main />
-      </ThemeController>
-    </CacheProvider>
+    <ModuleWrapper initialized={initialized} theme={theme}>
+      <Main />
+    </ModuleWrapper>
   );
 }
