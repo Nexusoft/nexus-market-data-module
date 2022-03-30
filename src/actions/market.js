@@ -1,15 +1,10 @@
 import * as TYPE from './types';
-
-const {
-  utilities: { proxyRequest },
-} = NEXUS;
+import { proxyRequest } from 'nexus-module';
 
 export const marketDataLoaded = () => ({ type: TYPE.MARKET_DATA_LOADED });
 
 export const binance24hrInfo = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://api.binance.com/api/v1/ticker/24hr?symbol=NXSBTC',
     { method: 'GET' }
   );
@@ -45,9 +40,7 @@ export const bittrex24hrInfo = () => async (dispatch) => {
 export const binanceDepthLoader = () => async (dispatch) => {
   const { data } = await proxyRequest(
     'https://api.binance.com/api/v1/depth?symbol=NXSBTC',
-    {
-      method: 'GET',
-    }
+    { method: 'GET' }
   );
   const res = {
     sell: data.asks
@@ -74,9 +67,7 @@ export const binanceDepthLoader = () => async (dispatch) => {
 };
 
 export const binanceWalletStatus = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://www.binance.com/assetWithdraw/getAllAsset.html',
     { method: 'GET' }
   );
@@ -90,9 +81,7 @@ export const binanceWalletStatus = () => async (dispatch) => {
 };
 
 export const bittrexWalletStatus = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://bittrex.com/api/v2.0/pub/currencies/GetWalletHealth',
     { method: 'GET' }
   );
@@ -108,9 +97,7 @@ export const bittrexWalletStatus = () => async (dispatch) => {
 };
 
 export const bittrexDepthLoader = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://bittrex.com/api/v1.1/public/getorderbook?market=BTC-NXS&type=both',
     { method: 'GET' }
   );
@@ -135,9 +122,7 @@ export const bittrexDepthLoader = () => async (dispatch) => {
 // actions creators for candlestick data
 
 export const binanceCandlestickLoader = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://api.binance.com/api/v1/klines?symbol=NXSBTC&interval=1d',
     { method: 'GET' }
   );
@@ -166,9 +151,7 @@ export const binanceCandlestickLoader = () => async (dispatch) => {
 };
 
 export const bittrexCandlestickLoader = () => async (dispatch) => {
-  const {
-    data,
-  } = await proxyRequest(
+  const { data } = await proxyRequest(
     'https://bittrex.com/api/v2.0/pub/market/GetTicks?marketName=BTC-NXS&tickInterval=day',
     { method: 'GET' }
   );
