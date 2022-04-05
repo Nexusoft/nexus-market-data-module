@@ -20,13 +20,13 @@ export const binance24hrInfo = () => async (dispatch) => {
 
 export const bittrex24hrInfo = () => async (dispatch) => {
   const result = await proxyRequest(
-    'https://bittrex.com/api/v3/public/getmarketsummary?market=btc-nxs',
+    'https://api.bittrex.com/v3/markets/NXS-BTC/summary',
     { method: 'GET' }
   );
   const data = result.data.result[0];
 
   const res = {
-    change: percentChange,
+    change: data.percentChange,
     high: data.high,
     low: data.low,
     volume: data.volume,
