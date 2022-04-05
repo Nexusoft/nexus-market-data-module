@@ -3,6 +3,31 @@ import { proxyRequest } from 'nexus-module';
 
 export const marketDataLoaded = () => ({ type: TYPE.MARKET_DATA_LOADED });
 
+export const binanceWalletStatus = () => async (dispatch) => {
+  const { data } = await proxyRequest(
+    'https://api.binance.com/api/v3/exchangeInfo?symbol=NXSBTC',
+    { method: 'GET' }
+  );
+  const walletOnline = data.status === 'TRADING';
+  dispatch({
+    type: TYPE.BINANCE_WALLET_STATUS,
+    payload: walletOnline,
+  });
+};
+
+export const bittrexWalletStatus = () => async (dispatch) => {
+  const { data } = await proxyRequest(
+    'https://api.bittrex.com/v3/markets/NXS-BTC',
+    { method: 'GET' }
+  );
+  const walletOnline = data.status === 'ONLINE';
+
+  dispatch({
+    type: TYPE.BITTREX_WALLET_STATUS,
+    payload: walletOnline,
+  });
+};
+
 export const binance24hrInfo = () => async (dispatch) => {
   const { data } = await proxyRequest(
     'https://api.binance.com/api/v3/ticker/24hr?symbol=NXSBTC',
@@ -66,39 +91,9 @@ export const binanceDepthLoader = () => async (dispatch) => {
   dispatch(marketDataLoaded());
 };
 
-export const binanceWalletStatus = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://www.binance.com/assetWithdraw/getAllAsset.html',
-    { method: 'GET' }
-  );
-  const nxsStatus = data.filter((element) => element.assetCode === 'NXS')[0];
-  const walletOnline = nxsStatus.enableCharge && nxsStatus.enableWithdraw;
-  //Add stuff to catch error and make this a bit more robust.
-  dispatch({
-    type: TYPE.BINANCE_WALLET_STATUS,
-    payload: walletOnline ? 'Green' : 'Red',
-  });
-};
-
-export const bittrexWalletStatus = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://bittrex.com/api/v2.0/pub/currencies/GetWalletHealth',
-    { method: 'GET' }
-  );
-  const nxsStatus = data.result.filter(
-    (element) => element.Health.Currency === 'NXS'
-  )[0];
-  const walletOnline = nxsStatus.Health.IsActive;
-
-  dispatch({
-    type: TYPE.BITTREX_WALLET_STATUS,
-    payload: walletOnline ? 'Green' : 'Red',
-  });
-};
-
 export const bittrexDepthLoader = () => async (dispatch) => {
   const { data } = await proxyRequest(
-    'https://bittrex.com/api/v3/public/getorderbook?market=BTC-NXS&type=both',
+    'https://api.bittrex.com/v3/getorderbook?market=BTC-NXS&type=both',
     { method: 'GET' }
   );
 
