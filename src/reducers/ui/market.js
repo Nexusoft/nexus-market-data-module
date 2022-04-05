@@ -2,7 +2,7 @@ import * as TYPE from 'actions/types';
 
 const initialState = {
   binance: {
-    walletStatus: 'Gray',
+    walletStatus: null,
     info24hr: {
       change: 0,
       high: 0,
@@ -15,7 +15,7 @@ const initialState = {
   },
 
   bittrex: {
-    walletStatus: 'Gray',
+    walletStatus: null,
     info24hr: {
       change: 0,
       high: 0,
