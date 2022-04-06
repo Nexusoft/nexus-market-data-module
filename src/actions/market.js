@@ -60,6 +60,64 @@ export const bittrex24hrInfo = () => async (dispatch) => {
   dispatch({ type: TYPE.BITTREX_24, payload: res });
 };
 
+export const binanceCandlestickLoader = () => async (dispatch) => {
+  const { data } = await proxyRequest(
+    'https://api.binance.com/api/v3/klines?symbol=NXSBTC&interval=1d',
+    { method: 'GET' }
+  );
+
+  const res = data
+    .reverse()
+    .slice(0, 30)
+    .map((e) => {
+      return {
+        x: new Date(e[0]),
+        open: parseFloat(e[1]),
+        close: parseFloat(e[4]),
+        high: parseFloat(e[2]),
+        low: parseFloat(e[3]),
+        label: `Date: ${new Date(e[0]).getMonth() + 1}/${new Date(
+          e[0]
+        ).getDate()}/${new Date(e[0]).getFullYear()}
+             Open: ${parseFloat(e[1])}
+             Close: ${parseFloat(e[4])}
+             High: ${parseFloat(e[2])}
+             Low: ${parseFloat(e[3])}`,
+      };
+    });
+  dispatch({ type: TYPE.BINANCE_CANDLESTICK, payload: res });
+  dispatch(marketDataLoaded());
+};
+
+export const bittrexCandlestickLoader = () => async (dispatch) => {
+  const { data } = await proxyRequest(
+    'https://api.bittrex.com/v3/markets/NXS-BTC/candles/DAY_1/recent',
+    { method: 'GET' }
+  );
+
+  const res = data.result
+    .reverse()
+    .map((e) => {
+      return {
+        x: new Date(e.T),
+        open: e.O,
+        close: e.C,
+        high: e.H,
+        low: e.L,
+        label: `Date: ${new Date(e.T).getMonth() + 1}/${new Date(
+          e.T
+        ).getDate()}/${new Date(e.T).getFullYear()}
+                Open: ${e.O}
+                Close: ${e.C}
+                High: ${e.H}
+                Low: ${e.L}`,
+      };
+    })
+    .slice(0, 30);
+  dispatch({ type: TYPE.BITTREX_CANDLESTICK, payload: res });
+  dispatch(marketDataLoaded());
+};
+
 // action creators for the market depth calls
 
 export const binanceDepthLoader = () => async (dispatch) => {
@@ -93,7 +151,7 @@ export const binanceDepthLoader = () => async (dispatch) => {
 
 export const bittrexDepthLoader = () => async (dispatch) => {
   const { data } = await proxyRequest(
-    'https://api.bittrex.com/v3/getorderbook?market=BTC-NXS&type=both',
+    'https://api.bittrex.com/v3/markets/NXS-BTC/orderbook',
     { method: 'GET' }
   );
 
@@ -115,61 +173,3 @@ export const bittrexDepthLoader = () => async (dispatch) => {
 };
 
 // actions creators for candlestick data
-
-export const binanceCandlestickLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.binance.com/api/v3/klines?symbol=NXSBTC&interval=1d',
-    { method: 'GET' }
-  );
-
-  const res = data
-    .reverse()
-    .map((e) => {
-      return {
-        x: new Date(e[0]),
-        open: parseFloat(e[1]),
-        close: parseFloat(e[4]),
-        high: parseFloat(e[2]),
-        low: parseFloat(e[3]),
-        label: `Date: ${new Date(e[0]).getMonth() + 1}/${new Date(
-          e[0]
-        ).getDate()}/${new Date(e[0]).getFullYear()}
-             Open: ${parseFloat(e[1])}
-             Close: ${parseFloat(e[4])}
-             High: ${parseFloat(e[2])}
-             Low: ${parseFloat(e[3])}`,
-      };
-    })
-    .slice(0, 30);
-  dispatch({ type: TYPE.BINANCE_CANDLESTICK, payload: res });
-  dispatch(marketDataLoaded());
-};
-
-export const bittrexCandlestickLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://bittrex.com/api/v2.0/pub/market/GetTicks?marketName=BTC-NXS&tickInterval=day',
-    { method: 'GET' }
-  );
-
-  const res = data.result
-    .reverse()
-    .map((e) => {
-      return {
-        x: new Date(e.T),
-        open: e.O,
-        close: e.C,
-        high: e.H,
-        low: e.L,
-        label: `Date: ${new Date(e.T).getMonth() + 1}/${new Date(
-          e.T
-        ).getDate()}/${new Date(e.T).getFullYear()}
-                Open: ${e.O}
-                Close: ${e.C}
-                High: ${e.H}
-                Low: ${e.L}`,
-      };
-    })
-    .slice(0, 30);
-  dispatch({ type: TYPE.BITTREX_CANDLESTICK, payload: res });
-  dispatch(marketDataLoaded());
-};
