@@ -3,11 +3,24 @@ import { proxyRequest } from 'nexus-module';
 
 export const marketDataLoaded = () => ({ type: TYPE.MARKET_DATA_LOADED });
 
-export const binanceWalletStatus = () => async (dispatch) => {
+async function callBinance(path, options) {
   const { data } = await proxyRequest(
-    'https://api.binance.com/api/v3/exchangeInfo?symbol=NXSBTC',
-    { method: 'GET' }
+    'https://api.binance.com/api/v3/' + path,
+    { method: 'GET', ...options }
   );
+  return data;
+}
+
+async function callBittrex(path, options) {
+  const { data } = await proxyRequest('https://api.bittrex.com/v3/' + path, {
+    method: 'GET',
+    ...options,
+  });
+  return data;
+}
+
+export const binanceWalletStatus = () => async (dispatch) => {
+  const data = await callBinance('exchangeInfo?symbol=NXSBTC');
   const walletOnline = data.status === 'TRADING';
   dispatch({
     type: TYPE.BINANCE_WALLET_STATUS,
@@ -16,10 +29,7 @@ export const binanceWalletStatus = () => async (dispatch) => {
 };
 
 export const bittrexWalletStatus = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.bittrex.com/v3/markets/NXS-BTC',
-    { method: 'GET' }
-  );
+  const data = await callBittrex('markets/NXS-BTC');
   const walletOnline = data.status === 'ONLINE';
 
   dispatch({
@@ -29,10 +39,7 @@ export const bittrexWalletStatus = () => async (dispatch) => {
 };
 
 export const binance24hrInfo = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.binance.com/api/v3/ticker/24hr?symbol=NXSBTC',
-    { method: 'GET' }
-  );
+  const data = await callBinance('ticker/24hr?symbol=NXSBTC');
   const res = {
     change: data.priceChangePercent,
     high: data.highPrice,
@@ -44,11 +51,10 @@ export const binance24hrInfo = () => async (dispatch) => {
 };
 
 export const bittrex24hrInfo = () => async (dispatch) => {
-  const result = await proxyRequest(
+  const data = await callBittrex(
     'https://api.bittrex.com/v3/markets/NXS-BTC/summary',
     { method: 'GET' }
   );
-  const data = result.data.result[0];
 
   const res = {
     change: data.percentChange,
@@ -61,10 +67,7 @@ export const bittrex24hrInfo = () => async (dispatch) => {
 };
 
 export const binanceCandlestickLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.binance.com/api/v3/klines?symbol=NXSBTC&interval=1d',
-    { method: 'GET' }
-  );
+  const data = await callBinance('klines?symbol=NXSBTC&interval=1d');
 
   const res = data
     .reverse()
@@ -90,10 +93,7 @@ export const binanceCandlestickLoader = () => async (dispatch) => {
 };
 
 export const bittrexCandlestickLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.bittrex.com/v3/markets/NXS-BTC/candles/DAY_1/recent',
-    { method: 'GET' }
-  );
+  const data = await callBittrex('markets/NXS-BTC/candles/DAY_1/recent');
 
   const res = data.result
     .reverse()
@@ -121,10 +121,7 @@ export const bittrexCandlestickLoader = () => async (dispatch) => {
 // action creators for the market depth calls
 
 export const binanceDepthLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.binance.com/api/v3/depth?symbol=NXSBTC',
-    { method: 'GET' }
-  );
+  const data = await callBinance('depth?symbol=NXSBTC');
   const res = {
     sell: data.asks
       .map((ele) => {
@@ -150,10 +147,7 @@ export const binanceDepthLoader = () => async (dispatch) => {
 };
 
 export const bittrexDepthLoader = () => async (dispatch) => {
-  const { data } = await proxyRequest(
-    'https://api.bittrex.com/v3/markets/NXS-BTC/orderbook',
-    { method: 'GET' }
-  );
+  const data = await callBittrex('markets/NXS-BTC/orderbook');
 
   const res = {
     buy: data.result.buy
