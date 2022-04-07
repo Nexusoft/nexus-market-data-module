@@ -19,7 +19,7 @@ async function callBittrex(path, options) {
   return data;
 }
 
-export const binanceWalletStatus = () => async (dispatch) => {
+export const binanceStatus = () => async (dispatch) => {
   const data = await callBinance('exchangeInfo?symbol=NXSBTC');
   dispatch({
     type: TYPE.BINANCE_STATUS,
@@ -27,7 +27,7 @@ export const binanceWalletStatus = () => async (dispatch) => {
   });
 };
 
-export const bittrexWalletStatus = () => async (dispatch) => {
+export const bittrexStatus = () => async (dispatch) => {
   const data = await callBittrex('markets/NXS-BTC');
   dispatch({
     type: TYPE.BITTREX_STATUS,
