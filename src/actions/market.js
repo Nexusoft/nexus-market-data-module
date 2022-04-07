@@ -41,6 +41,7 @@ export const bittrexWalletStatus = () => async (dispatch) => {
 export const binance24hrInfo = () => async (dispatch) => {
   const data = await callBinance('ticker/24hr?symbol=NXSBTC');
   const res = {
+    lastPrice: data.lastPrice,
     change: data.priceChangePercent,
     high: data.highPrice,
     low: data.lowPrice,
@@ -51,17 +52,18 @@ export const binance24hrInfo = () => async (dispatch) => {
 };
 
 export const bittrex24hrInfo = () => async (dispatch) => {
-  const data = await callBittrex(
-    'https://api.bittrex.com/v3/markets/NXS-BTC/summary',
-    { method: 'GET' }
-  );
+  const [summary, ticker] = await Promise.all([
+    callBittrex('markets/NXS-BTC/summary'),
+    callBittrex('markets/NXS-BTC/ticker'),
+  ]);
 
   const res = {
-    change: data.percentChange,
-    high: data.high,
-    low: data.low,
-    volume: data.volume,
-    quoteVolume: data.quoteVolume,
+    lastPrice: ticker.lastTradeRate,
+    change: summary.percentChange,
+    high: summary.high,
+    low: summary.low,
+    volume: summary.volume,
+    quoteVolume: summary.quoteVolume,
   };
   dispatch({ type: TYPE.BITTREX_SUMMARY, payload: res });
 };
