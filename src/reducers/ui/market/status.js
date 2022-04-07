@@ -7,13 +7,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TYPE.BINANCE_WALLET_STATUS:
+    case TYPE.BINANCE_STATUS:
       return {
         ...state,
         binance: action.payload,
       };
 
-    case TYPE.BITTREX_WALLET_STATUS:
+    case TYPE.BITTREX_STATUS:
       return {
         ...state,
         bittrex: action.payload,

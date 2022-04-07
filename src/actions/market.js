@@ -23,7 +23,7 @@ export const binanceWalletStatus = () => async (dispatch) => {
   const data = await callBinance('exchangeInfo?symbol=NXSBTC');
   const walletOnline = data.status === 'TRADING';
   dispatch({
-    type: TYPE.BINANCE_WALLET_STATUS,
+    type: TYPE.BINANCE_STATUS,
     payload: walletOnline,
   });
 };
@@ -33,7 +33,7 @@ export const bittrexWalletStatus = () => async (dispatch) => {
   const walletOnline = data.status === 'ONLINE';
 
   dispatch({
-    type: TYPE.BITTREX_WALLET_STATUS,
+    type: TYPE.BITTREX_STATUS,
     payload: walletOnline,
   });
 };
@@ -47,7 +47,7 @@ export const binance24hrInfo = () => async (dispatch) => {
     volume: data.volume,
     quoteVolume: data.quoteVolume,
   };
-  dispatch({ type: TYPE.BINANCE_24, payload: res });
+  dispatch({ type: TYPE.BINANCE_SUMMARY, payload: res });
 };
 
 export const bittrex24hrInfo = () => async (dispatch) => {
@@ -63,7 +63,7 @@ export const bittrex24hrInfo = () => async (dispatch) => {
     volume: data.volume,
     quoteVolume: data.quoteVolume,
   };
-  dispatch({ type: TYPE.BITTREX_24, payload: res });
+  dispatch({ type: TYPE.BITTREX_SUMMARY, payload: res });
 };
 
 export const binanceCandlestickLoader = () => async (dispatch) => {
