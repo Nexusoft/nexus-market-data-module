@@ -63,7 +63,7 @@ export const bittrex24hrInfo = () => async (dispatch) => {
   dispatch({ type: TYPE.BITTREX_SUMMARY, payload: res });
 };
 
-export const binanceCandlestickLoader = () => async (dispatch) => {
+export const binanceCandlestick = () => async (dispatch) => {
   const data = await callBinance('klines?symbol=NXSBTC&interval=1d');
 
   const res = data
@@ -88,7 +88,7 @@ export const binanceCandlestickLoader = () => async (dispatch) => {
   dispatch({ type: TYPE.BINANCE_CANDLESTICK, payload: res });
 };
 
-export const bittrexCandlestickLoader = () => async (dispatch) => {
+export const bittrexCandlestick = () => async (dispatch) => {
   const data = await callBittrex('markets/NXS-BTC/candles/DAY_1/recent');
 
   const res = data.result
@@ -115,7 +115,7 @@ export const bittrexCandlestickLoader = () => async (dispatch) => {
 
 // action creators for the market depth calls
 
-export const binanceDepthLoader = () => async (dispatch) => {
+export const binanceDepth = () => async (dispatch) => {
   const data = await callBinance('depth?symbol=NXSBTC');
   const res = {
     sell: data.asks
@@ -140,7 +140,7 @@ export const binanceDepthLoader = () => async (dispatch) => {
   dispatch({ type: TYPE.BINANCE_ORDERBOOK, payload: res });
 };
 
-export const bittrexDepthLoader = () => async (dispatch) => {
+export const bittrexDepth = () => async (dispatch) => {
   const data = await callBittrex('markets/NXS-BTC/orderbook');
 
   const res = {
