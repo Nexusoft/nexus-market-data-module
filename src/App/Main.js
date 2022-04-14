@@ -29,7 +29,7 @@ export default function Main() {
             switchTab('overview');
           }}
         >
-          Overview
+          24hr Overview
         </HorizontalTab>
         <HorizontalTab
           active={activeTab === 'price'}
