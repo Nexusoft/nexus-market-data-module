@@ -1,8 +1,6 @@
 import * as TYPE from './types';
 import { proxyRequest } from 'nexus-module';
 
-export const marketDataLoaded = () => ({ type: TYPE.MARKET_DATA_LOADED });
-
 async function callBinance(path, options) {
   const { data } = await proxyRequest(
     'https://api.binance.com/api/v3/' + path,
@@ -88,7 +86,6 @@ export const binanceCandlestickLoader = () => async (dispatch) => {
       };
     });
   dispatch({ type: TYPE.BINANCE_CANDLESTICK, payload: res });
-  dispatch(marketDataLoaded());
 };
 
 export const bittrexCandlestickLoader = () => async (dispatch) => {
@@ -114,7 +111,6 @@ export const bittrexCandlestickLoader = () => async (dispatch) => {
     })
     .slice(0, 30);
   dispatch({ type: TYPE.BITTREX_CANDLESTICK, payload: res });
-  dispatch(marketDataLoaded());
 };
 
 // action creators for the market depth calls
@@ -142,7 +138,6 @@ export const binanceDepthLoader = () => async (dispatch) => {
   };
 
   dispatch({ type: TYPE.BINANCE_ORDERBOOK, payload: res });
-  dispatch(marketDataLoaded());
 };
 
 export const bittrexDepthLoader = () => async (dispatch) => {
@@ -162,7 +157,6 @@ export const bittrexDepthLoader = () => async (dispatch) => {
       .reverse(),
   };
   dispatch({ type: TYPE.BITTREX_ORDERBOOK, payload: res });
-  dispatch(marketDataLoaded());
 };
 
 // actions creators for candlestick data
