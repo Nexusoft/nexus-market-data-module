@@ -18,5 +18,8 @@ export default (state = initialState, action) => {
         ...state,
         bittrex: action.payload,
       };
+
+    default:
+      return state;
   }
 };
