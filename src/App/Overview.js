@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import BinanceLogo from 'components/BinanceLogo';
 import BittrexLogo from 'components/BittrexLogo';
-import { binance24hrInfo } from 'actions/market';
+import { binance24hrInfo, bittrex24hrInfo } from 'actions/market';
 
 const Exchange = styled.div({
   paddingTop: '2em',
@@ -15,9 +15,10 @@ const Line = styled.div({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr',
   columnGap: 20,
+  marginTop: '1em',
 });
 
-const Label = styled.div((theme) => ({
+const Label = styled.div(({ theme }) => ({
   color: theme.primary,
   fontWeight: 'bold',
 }));
@@ -29,7 +30,7 @@ const Value = styled.div({
 function ExchangeSummary({ data, logo }) {
   return (
     <Exchange>
-      <div className="mb1">{logo}</div>
+      <div>{logo}</div>
       <Line>
         <div>
           <Label>Last price</Label>
@@ -40,8 +41,8 @@ function ExchangeSummary({ data, logo }) {
           <Value>{data ? data.high : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Low</Label>
-          <Value>{data ? data.low : 'N/A'}</Value>
+          <Label>Volume</Label>
+          <Value>{data ? data.volume : 'N/A'}</Value>
         </div>
       </Line>
       <Line>
@@ -50,8 +51,8 @@ function ExchangeSummary({ data, logo }) {
           <Value>{data ? data.change + '%' : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Volume</Label>
-          <Value>{data ? data.volume : 'N/A'}</Value>
+          <Label>Low</Label>
+          <Value>{data ? data.low : 'N/A'}</Value>
         </div>
         <div>
           <Label>Volume (BTC)</Label>
@@ -67,6 +68,7 @@ export default function Overview() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(binance24hrInfo());
+    dispatch(bittrex24hrInfo());
   }, []);
 
   return (
