@@ -4,7 +4,7 @@ import { Panel, HorizontalTab } from 'nexus-module';
 import * as TYPE from 'actions/types';
 
 import RefreshButton from './RefreshButton';
-import Overview from './Overview';
+import Summary from './Summary';
 
 export default function Main() {
   const activeTab = useSelector((state) => state.ui.activeTab);
@@ -24,12 +24,12 @@ export default function Main() {
     >
       <HorizontalTab.TabBar>
         <HorizontalTab
-          active={activeTab === 'overview'}
+          active={activeTab === 'summary'}
           onClick={() => {
-            switchTab('overview');
+            switchTab('summary');
           }}
         >
-          24hr Overview
+          24hr Summary
         </HorizontalTab>
         <HorizontalTab
           active={activeTab === 'price'}
@@ -49,7 +49,7 @@ export default function Main() {
         </HorizontalTab>
       </HorizontalTab.TabBar>
 
-      <div>{activeTab === 'overview' && <Overview />}</div>
+      <div>{activeTab === 'summary' && <Summary />}</div>
     </Panel>
   );
 }

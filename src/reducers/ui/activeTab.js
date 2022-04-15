@@ -1,6 +1,6 @@
 import * as TYPE from 'actions/types';
 
-// overview | price | depth
+// summary | price | depth
 const initialState = 'price';
 
 export default (state = initialState, action) => {

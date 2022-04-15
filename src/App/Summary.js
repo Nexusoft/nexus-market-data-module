@@ -69,7 +69,7 @@ function ExchangeSummary({
   );
 }
 
-export default function Overview() {
+export default function Summary() {
   const summary = useSelector((state) => state.ui.market.summary);
   const dispatch = useDispatch();
   useEffect(() => {
