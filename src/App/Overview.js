@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import BinanceLogo from 'components/BinanceLogo';
 import BittrexLogo from 'components/BittrexLogo';
-import { binance24hrInfo, bittrex24hrInfo } from 'actions/market';
+import { refresh24hrSummary } from 'actions/market';
+import { tradingPairIDs } from 'constants';
 
 const Exchange = styled.div({
   paddingTop: '2em',
@@ -72,8 +73,7 @@ export default function Overview() {
   const summary = useSelector((state) => state.ui.market.summary);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(binance24hrInfo());
-    dispatch(bittrex24hrInfo());
+    tradingPairIDs.map((pairID) => dispatch(refresh24hrSummary(pairID)));
   }, []);
 
   return (
