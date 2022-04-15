@@ -19,9 +19,10 @@ async function callBittrex(path, options) {
 
 export const binanceStatus = () => async (dispatch) => {
   const data = await callBinance('exchangeInfo?symbol=NXSBTC');
+  const { status } = data.symbols.find((s) => s.symbol === 'NXSBTC');
   dispatch({
     type: TYPE.BINANCE_STATUS,
-    payload: data.status,
+    payload: status,
   });
 };
 
