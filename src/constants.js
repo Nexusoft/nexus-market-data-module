@@ -1,13 +1,13 @@
 export const tradingPairs = {
-  'binance:NXS_BTC': {
+  'binance:NXSBTC': {
     exchange: 'binance',
-    symbol: 'NXS_BTC',
+    symbol: 'NXSBTC',
     baseTicker: 'NXS',
     quoteTicker: 'BTC',
   },
-  'bittrex:BTC-NXS': {
+  'bittrex:NXS-BTC': {
     exchange: 'bittrex',
-    symbol: 'BTC-NXS',
+    symbol: 'NXS-BTC',
     baseTicker: 'NXS',
     quoteTicker: 'BTC',
   },
