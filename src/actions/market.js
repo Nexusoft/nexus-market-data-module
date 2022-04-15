@@ -27,16 +27,13 @@ const fetchStatus = {
   },
   bittrex: async (symbol) => {
     const data = await callBittrex('markets/' + symbol);
-    dispatch({
-      type: TYPE.BITTREX_STATUS,
-      payload: data.status,
-    });
+    return data.status;
   },
 };
 
 export const refreshStatus = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
-  const status = fetchStatus[exchange](symbol);
+  const status = await fetchStatus[exchange](symbol);
   dispatch({
     type: TYPE.SET_STATUS,
     payload: status,
@@ -77,7 +74,7 @@ const fetch24hrSummary = {
 
 export const refresh24hrSummary = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
-  const summary = fetch24hrSummary[exchange](symbol);
+  const summary = await fetch24hrSummary[exchange](symbol);
   dispatch({
     type: TYPE.SET_SUMMARY,
     payload: summary,
@@ -136,7 +133,7 @@ const fetchCandles = {
 
 export const refreshCandles = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
-  const candles = fetchCandles[exchange](symbol);
+  const candles = await fetchCandles[exchange](symbol);
   dispatch({
     type: TYPE.SET_CANDLES,
     payload: candles,
@@ -189,7 +186,7 @@ const fetchOrderBook = {
 
 export const refreshOrderBook = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
-  const candles = fetchOrderBook[exchange](symbol);
+  const candles = await fetchOrderBook[exchange](symbol);
   dispatch({
     type: TYPE.SET_ORDERBOOK,
     payload: candles,
