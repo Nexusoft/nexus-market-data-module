@@ -34,10 +34,7 @@ export default function TradingPair({ pairID }) {
       <PairSymbol>
         {baseTicker}/{quoteTicker}
       </PairSymbol>
-      <StatusIndicator
-        status={status}
-        active={status && status === 'TRADING'}
-      />
+      <StatusIndicator status={status} exchange={exchange} />
     </div>
   );
 }

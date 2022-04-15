@@ -29,10 +29,21 @@ const StatusIcon = styled.div(
   }
 );
 
-export default function StatusIndicator({ status, active }) {
+function isStatusActive(status, exchange) {
+  switch (exchange) {
+    case 'binance':
+      return status && status === 'TRADING';
+    case 'bittrex':
+      return status && status === 'ONLINE';
+    default:
+      return null;
+  }
+}
+
+export default function StatusIndicator({ status, exchange }) {
   return (
     <Tooltip.Trigger tooltip={'Wallet status: ' + (status || 'Unknown')}>
-      <StatusIcon active={active} />
+      <StatusIcon active={isStatusActive(status, exchange)} />
     </Tooltip.Trigger>
   );
 }
