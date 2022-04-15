@@ -2,10 +2,9 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import BinanceLogo from 'components/BinanceLogo';
-import BittrexLogo from 'components/BittrexLogo';
+import TradingPair from 'components/TradingPair';
 import { refresh24hrSummary } from 'actions/market';
-import { tradingPairIDs } from 'constants';
+import { tradingPairs, tradingPairIDs } from 'constants';
 
 const Exchange = styled.div({
   paddingTop: '2em',
@@ -28,41 +27,47 @@ const Value = styled.div({
   fontSize: 24,
 });
 
-function ExchangeSummary({
-  data,
-  logo,
-  baseCurrency = 'NXS',
-  quoteCurrency = 'BTC',
-}) {
+function ExchangeSummary({ pairID }) {
+  const summary = useSelector((state) => state.ui.market.summary?.[pairID]);
+  console.log(pairID, summary);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refresh24hrSummary(pairID));
+  }, []);
+
+  const { baseTicker, quoteTicker } = tradingPairs[pairID];
+
   return (
     <Exchange>
-      <div>{logo}</div>
+      <div>
+        <TradingPair pairID={pairID} />
+      </div>
       <Line>
         <div>
           <Label>Last price</Label>
-          <Value>{data ? data.lastPrice : 'N/A'}</Value>
+          <Value>{summary ? summary.lastPrice : 'N/A'}</Value>
         </div>
         <div>
           <Label>High</Label>
-          <Value>{data ? data.high : 'N/A'}</Value>
+          <Value>{summary ? summary.high : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Volume ({baseCurrency})</Label>
-          <Value>{data ? data.volume : 'N/A'}</Value>
+          <Label>Volume ({baseTicker})</Label>
+          <Value>{summary ? summary.volume : 'N/A'}</Value>
         </div>
       </Line>
       <Line>
         <div>
           <Label>Change</Label>
-          <Value>{data ? data.change + '%' : 'N/A'}</Value>
+          <Value>{summary ? summary.change + '%' : 'N/A'}</Value>
         </div>
         <div>
           <Label>Low</Label>
-          <Value>{data ? data.low : 'N/A'}</Value>
+          <Value>{summary ? summary.low : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Volume ({quoteCurrency})</Label>
-          <Value>{data ? data.quoteVolume : 'N/A'}</Value>
+          <Label>Volume ({quoteTicker})</Label>
+          <Value>{summary ? summary.quoteVolume : 'N/A'}</Value>
         </div>
       </Line>
     </Exchange>
@@ -70,16 +75,11 @@ function ExchangeSummary({
 }
 
 export default function Summary() {
-  const summary = useSelector((state) => state.ui.market.summary);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    tradingPairIDs.map((pairID) => dispatch(refresh24hrSummary(pairID)));
-  }, []);
-
   return (
     <div>
-      <ExchangeSummary logo={<BinanceLogo />} data={summary.binance} />
-      <ExchangeSummary logo={<BittrexLogo />} data={summary.bittrex} />
+      {tradingPairIDs.map((pairID) => (
+        <ExchangeSummary key={pairID} pairID={pairID} />
+      ))}
     </div>
   );
 }
