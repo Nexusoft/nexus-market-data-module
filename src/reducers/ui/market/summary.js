@@ -1,22 +1,13 @@
 import * as TYPE from 'actions/types';
 
-const initialState = {
-  binance: null,
-  bittrex: null,
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TYPE.BINANCE_SUMMARY:
+    case TYPE.SET_SUMMARY:
       return {
         ...state,
-        binance: action.payload,
-      };
-
-    case TYPE.BITTREX_SUMMARY:
-      return {
-        ...state,
-        bittrex: action.payload,
+        [action.pairID]: action.payload,
       };
 
     default:
