@@ -8,7 +8,6 @@ const StatusIcon = styled.div(
     width: '14px',
     borderRadius: '50%',
     display: 'inline-block',
-    marginBottom: '18px',
     verticalAlign: 'middle',
   },
   ({ active }) => {
