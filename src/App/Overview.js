@@ -27,7 +27,12 @@ const Value = styled.div({
   fontSize: 24,
 });
 
-function ExchangeSummary({ data, logo }) {
+function ExchangeSummary({
+  data,
+  logo,
+  baseCurrency = 'NXS',
+  quoteCurrency = 'BTC',
+}) {
   return (
     <Exchange>
       <div>{logo}</div>
@@ -41,7 +46,7 @@ function ExchangeSummary({ data, logo }) {
           <Value>{data ? data.high : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Volume</Label>
+          <Label>Volume ({baseCurrency})</Label>
           <Value>{data ? data.volume : 'N/A'}</Value>
         </div>
       </Line>
@@ -55,8 +60,8 @@ function ExchangeSummary({ data, logo }) {
           <Value>{data ? data.low : 'N/A'}</Value>
         </div>
         <div>
-          <Label>Volume (BTC)</Label>
-          <Value>{data ? data.low : 'N/A'}</Value>
+          <Label>Volume ({quoteCurrency})</Label>
+          <Value>{data ? data.quoteVolume : 'N/A'}</Value>
         </div>
       </Line>
     </Exchange>
