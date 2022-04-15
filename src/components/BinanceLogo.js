@@ -10,7 +10,10 @@ export default function BinanceLogo() {
       <a href="https://www.binance.com/en/trade/NXS_BTC" class="v-align mr0_4">
         <ExchangeImg src="icons/BINANCE.png" />
       </a>
-      <StatusIndicator status={status} active={status === 'TRADING'} />
+      <StatusIndicator
+        status={status}
+        active={status && status === 'TRADING'}
+      />
     </div>
   );
 }

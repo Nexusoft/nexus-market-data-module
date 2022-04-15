@@ -13,7 +13,7 @@ export default function BittrexLogo() {
       >
         <ExchangeImg src="icons/BittrexLogo.png" />
       </a>
-      <StatusIndicator status={status} active={status === 'ONLINE'} />
+      <StatusIndicator status={status} active={status && status === 'ONLINE'} />
     </div>
   );
 }
