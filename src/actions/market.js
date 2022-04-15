@@ -56,8 +56,8 @@ const fetch24hrSummary = {
   },
   bittrex: async (symbol) => {
     const [summary, ticker] = await Promise.all([
-      callBittrex('markets/NXS-BTC/summary'),
-      callBittrex('markets/NXS-BTC/ticker'),
+      callBittrex(`markets/${symbol}/summary`),
+      callBittrex(`markets/${symbol}/ticker`),
     ]);
 
     const finalSummary = {
