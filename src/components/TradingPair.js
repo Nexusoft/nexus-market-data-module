@@ -8,21 +8,16 @@ import { tradingPairs } from 'constants';
 
 const PairSymbol = styled.div(({ theme }) => ({
   display: 'inline-block',
-  padding: '.4em .8em',
-  background: theme.primary,
-  color: theme.primaryAccent,
-  borderRadius: 2,
+  padding: '.2em .6em',
+  background: theme.background,
+  color: theme.foreground,
+  borderRadius: 4,
   marginRight: '1em',
 }));
 
 const logo = {
   binance: <BinanceLogo className="mr1 v-align" />,
   bittrex: <BittrexLogo className="mr1 v-align" />,
-};
-
-const pairName = {
-  NXS_BTC: 'NXS/BTC',
-  'BTC-NXS': 'NXS/BTC',
 };
 
 export default function TradingPair({ pairID }) {
