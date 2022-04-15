@@ -3,15 +3,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Icon, Tooltip, Button } from 'nexus-module';
 
+import { tradingPairIDs } from 'constants';
 import {
-  binanceDepth,
-  bittrexDepth,
-  binance24hrInfo,
-  bittrex24hrInfo,
-  binanceCandlestick,
-  bittrexCandlestick,
-  binanceStatus,
-  bittrexStatus,
+  refreshStatus,
+  refresh24hrSummary,
+  refreshCandles,
+  refreshOrderBook,
 } from 'actions/market';
 
 const spin = keyframes`
@@ -31,14 +28,10 @@ function useRefreshMarket() {
     setRefreshing(true);
     try {
       await Promise.allSettled([
-        dispatch(binanceStatus()),
-        dispatch(binance24hrInfo()),
-        dispatch(binanceCandlestick()),
-        dispatch(binanceDepth()),
-        dispatch(bittrexStatus()),
-        dispatch(bittrex24hrInfo()),
-        dispatch(bittrexCandlestick()),
-        dispatch(bittrexDepth()),
+        ...tradingPairIDs.map((pairID) => dispatch(refreshStatus(pairID))),
+        ...tradingPairIDs.map((pairID) => dispatch(refresh24hrSummary(pairID))),
+        ...tradingPairIDs.map((pairID) => dispatch(refreshCandles(pairID))),
+        ...tradingPairIDs.map((pairID) => dispatch(refreshOrderBook(pairID))),
       ]);
     } finally {
       setRefreshing(false);
