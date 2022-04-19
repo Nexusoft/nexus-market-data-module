@@ -85,25 +85,13 @@ export const refresh24hrSummary = (pairID) => async (dispatch) => {
 const fetchCandles = {
   binance: async (symbol) => {
     const data = await callBinance(`klines?symbol=${symbol}&interval=1d`);
-    const candles = data
-      .reverse()
-      .slice(0, 30)
-      .map((e) => {
-        return {
-          x: new Date(e[0]),
-          open: parseFloat(e[1]),
-          close: parseFloat(e[4]),
-          high: parseFloat(e[2]),
-          low: parseFloat(e[3]),
-          label: `Date: ${new Date(e[0]).getMonth() + 1}/${new Date(
-            e[0]
-          ).getDate()}/${new Date(e[0]).getFullYear()}
-             Open: ${parseFloat(e[1])}
-             Close: ${parseFloat(e[4])}
-             High: ${parseFloat(e[2])}
-             Low: ${parseFloat(e[3])}`,
-        };
-      });
+    const candles = data.map(([time, open, high, low, close]) => ({
+      time,
+      open,
+      high,
+      low,
+      close,
+    }));
     return candles;
   },
   bittrex: async (symbol) => {
