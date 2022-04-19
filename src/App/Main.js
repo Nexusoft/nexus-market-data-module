@@ -5,6 +5,7 @@ import * as TYPE from 'actions/types';
 
 import RefreshButton from './RefreshButton';
 import Summary from './Summary';
+import PriceAction from './PriceAction';
 
 export default function Main() {
   const activeTab = useSelector((state) => state.ui.activeTab);
@@ -50,6 +51,7 @@ export default function Main() {
       </HorizontalTab.TabBar>
 
       <div>{activeTab === 'summary' && <Summary />}</div>
+      <div>{activeTab === 'price' && <PriceAction />}</div>
     </Panel>
   );
 }

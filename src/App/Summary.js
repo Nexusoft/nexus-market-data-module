@@ -32,6 +32,7 @@ function ExchangeSummary({ pairID }) {
   console.log(pairID, summary);
   const dispatch = useDispatch();
   useEffect(() => {
+    // TODO: batch
     dispatch(refresh24hrSummary(pairID));
   }, []);
 
