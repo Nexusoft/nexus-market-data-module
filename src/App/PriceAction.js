@@ -10,7 +10,7 @@ export default function PriceAction() {
           <div>
             <TradingPair pairID={pairID} />
           </div>
-          <div>
+          <div className="mt1">
             <CandlestickChart pairID={pairID} />
           </div>
         </div>
