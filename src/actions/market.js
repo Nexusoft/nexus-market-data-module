@@ -96,25 +96,13 @@ const fetchCandles = {
   },
   bittrex: async (symbol) => {
     const data = await callBittrex(`markets/${symbol}/candles/DAY_1/recent`);
-    const candles = data.result
-      .reverse()
-      .map((e) => {
-        return {
-          x: new Date(e.T),
-          open: e.O,
-          close: e.C,
-          high: e.H,
-          low: e.L,
-          label: `Date: ${new Date(e.T).getMonth() + 1}/${new Date(
-            e.T
-          ).getDate()}/${new Date(e.T).getFullYear()}
-                Open: ${e.O}
-                Close: ${e.C}
-                High: ${e.H}
-                Low: ${e.L}`,
-        };
-      })
-      .slice(0, 30);
+    const candles = data.map(({ startsAt, open, high, low, close }) => ({
+      time: startsAt,
+      open,
+      high,
+      low,
+      close,
+    }));
     return candles;
   },
 };
