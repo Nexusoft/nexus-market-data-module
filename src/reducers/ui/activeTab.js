@@ -1,7 +1,7 @@
 import * as TYPE from 'actions/types';
 
 // summary | price | depth
-const initialState = 'price';
+const initialState = 'summary';
 
 export default (state = initialState, action) => {
   switch (action.type) {
