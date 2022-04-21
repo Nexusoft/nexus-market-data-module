@@ -27,15 +27,20 @@ export default function CandlestickChart({ pairID }) {
   useEffect(() => {
     if (data && !chartRef.current) {
       const chart = createChart(containerRef.current, {
-        layout: theme
+        ...(theme
           ? {
-              background: {
-                color: theme.lower(theme.background, 0.3),
+              layout: {
+                background: {
+                  color: theme.lower(theme.background, 0.3),
+                },
+                textColor: theme.mixer(0.75),
               },
-              textColor: theme.mixer(0.75),
+              grid: {
+                vertLines: { color: theme.mixer(0.125) },
+                horzLines: { color: theme.mixer(0.125) },
+              },
             }
-          : undefined,
-        rightPriceScale: {},
+          : undefined),
       });
       seriesRef.current = chart.addCandlestickSeries({
         priceFormat: tradingPairs[pairID]?.priceFormat,
