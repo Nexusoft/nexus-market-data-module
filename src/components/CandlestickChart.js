@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
-import { createChart } from 'lightweight-charts';
+import { createChart, CrosshairMode } from 'lightweight-charts';
 
 import { refreshCandles } from 'actions/market';
 import { tradingPairs } from 'constants';
@@ -27,6 +27,7 @@ export default function CandlestickChart({ pairID }) {
   useEffect(() => {
     if (data && !chartRef.current) {
       const chart = createChart(containerRef.current, {
+        crosshair: { mode: CrosshairMode.Normal },
         ...(theme
           ? {
               layout: {
