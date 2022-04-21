@@ -5,6 +5,7 @@ import { useTheme } from '@emotion/react';
 import { createChart } from 'lightweight-charts';
 
 import { refreshCandles } from 'actions/market';
+import { tradingPairs } from 'constants';
 
 const Container = styled.div({
   height: 500,
@@ -25,20 +26,20 @@ export default function CandlestickChart({ pairID }) {
 
   useEffect(() => {
     if (data && !chartRef.current) {
-      const chart = createChart(
-        containerRef.current,
-        theme
+      const chart = createChart(containerRef.current, {
+        layout: theme
           ? {
-              layout: {
-                background: {
-                  color: theme.lower(theme.background, 0.3),
-                },
-                textColor: theme.mixer(0.75),
+              background: {
+                color: theme.lower(theme.background, 0.3),
               },
+              textColor: theme.mixer(0.75),
             }
-          : undefined
-      );
-      seriesRef.current = chart.addCandlestickSeries();
+          : undefined,
+        rightPriceScale: {},
+      });
+      seriesRef.current = chart.addCandlestickSeries({
+        priceFormat: tradingPairs[pairID]?.priceFormat,
+      });
       seriesRef.current.setData(data);
       chartRef.current = chart;
     }
