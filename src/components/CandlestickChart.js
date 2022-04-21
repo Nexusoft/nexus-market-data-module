@@ -8,7 +8,7 @@ import { refreshCandles } from 'actions/market';
 import { tradingPairs } from 'constants';
 
 const Container = styled.div({
-  height: 500,
+  height: 360,
 });
 
 export default function CandlestickChart({ pairID }) {
