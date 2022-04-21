@@ -86,7 +86,7 @@ const fetchCandles = {
   binance: async (symbol) => {
     const data = await callBinance(`klines?symbol=${symbol}&interval=1d`);
     const candles = data.map(([time, open, high, low, close]) => ({
-      time,
+      time: time / 1000,
       open,
       high,
       low,
