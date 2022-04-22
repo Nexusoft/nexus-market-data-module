@@ -32,9 +32,9 @@ export default function CandlestickChart({ pairID }) {
           ? {
               layout: {
                 background: {
-                  color: theme.lower(theme.background, 0.3),
+                  color: theme.lower(theme.background, 0.15),
                 },
-                textColor: theme.mixer(0.75),
+                textColor: theme.mixer(0.875),
               },
               grid: {
                 vertLines: { color: theme.mixer(0.125) },
