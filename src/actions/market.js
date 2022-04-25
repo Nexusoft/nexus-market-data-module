@@ -119,53 +119,21 @@ export const refreshCandles = (pairID) => async (dispatch) => {
 
 const fetchOrderBook = {
   binance: async (symbol) => {
-    const data = await callBinance('depth?symbol=' + symbol);
-    const depth = {
-      sell: data.asks
-        .map((ele) => {
-          return {
-            Volume: parseFloat(ele[1]),
-            Price: parseFloat(ele[0]),
-          };
-        })
-        .sort((a, b) => b.Price - a.Price)
-        .reverse(),
-      buy: data.bids
-        .map((ele) => {
-          return {
-            Volume: parseFloat(ele[1]),
-            Price: parseFloat(ele[0]),
-          };
-        })
-        .sort((a, b) => b.Price - a.Price),
-    };
-    return depth;
+    const data = await callBinance('depth?limit=25&symbol=' + symbol);
+    return data;
   },
   bittrex: async (symbol) => {
-    const data = await callBittrex(`markets/${symbol}/orderbook`);
-    const depth = {
-      buy: data.result.buy
-        .sort((a, b) => b.Rate - a.Rate)
-        .map((e) => {
-          return { Volume: e.Quantity, Price: e.Rate };
-        }),
-      sell: data.result.sell
-        .sort((a, b) => b.Rate - a.Rate)
-        .map((e) => {
-          return { Volume: e.Quantity, Price: e.Rate };
-        })
-        .reverse(),
-    };
-    return depth;
+    const data = await callBittrex(`markets/${symbol}/orderbook?depth=25`);
+    return data;
   },
 };
 
 export const refreshOrderBook = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
-  const candles = await fetchOrderBook[exchange](symbol);
+  const orderBook = await fetchOrderBook[exchange](symbol);
   dispatch({
     type: TYPE.SET_ORDERBOOK,
-    payload: candles,
+    payload: orderBook,
     pairID,
   });
 };
