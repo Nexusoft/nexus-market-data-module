@@ -1,6 +1,6 @@
 import * as TYPE from 'actions/types';
 
-// summary | price | depth
+// summary | price | orderbook
 const initialState = 'summary';
 
 export default (state = initialState, action) => {

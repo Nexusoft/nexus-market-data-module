@@ -6,6 +6,7 @@ import * as TYPE from 'actions/types';
 import RefreshButton from './RefreshButton';
 import Summary from './Summary';
 import PriceAction from './PriceAction';
+import OrderBook from './OrderBook';
 
 export default function Main() {
   const activeTab = useSelector((state) => state.ui.activeTab);
@@ -38,20 +39,21 @@ export default function Main() {
             switchTab('price');
           }}
         >
-          Price Action
+          Price Chart
         </HorizontalTab>
         <HorizontalTab
-          active={activeTab === 'depth'}
+          active={activeTab === 'orderbook'}
           onClick={() => {
-            switchTab('depth');
+            switchTab('orderbook');
           }}
         >
-          Market Depth
+          Order Book
         </HorizontalTab>
       </HorizontalTab.TabBar>
 
       <div>{activeTab === 'summary' && <Summary />}</div>
       <div>{activeTab === 'price' && <PriceAction />}</div>
+      <div>{activeTab === 'orderbook' && <OrderBook />}</div>
     </Panel>
   );
 }
