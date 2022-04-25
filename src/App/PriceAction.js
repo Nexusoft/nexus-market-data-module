@@ -6,7 +6,7 @@ export default function PriceAction() {
   return (
     <div>
       {tradingPairIDs.map((pairID) => (
-        <div key={pairID}>
+        <div key={pairID} className="mt2">
           <div>
             <TradingPair pairID={pairID} />
           </div>
