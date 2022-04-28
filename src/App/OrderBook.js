@@ -45,7 +45,7 @@ function PairOrderBook({ pairID }) {
       <OrderBookWrapper>
         <OrderList>
           <div>
-            <HeaderCell>Price ({quoteTicker})</HeaderCell>
+            <HeaderCell>Price</HeaderCell>
             {bids.map(({ price }, i) => (
               <Cell key={i}>{price}</Cell>
             ))}
@@ -60,7 +60,7 @@ function PairOrderBook({ pairID }) {
 
         <OrderList>
           <div>
-            <HeaderCell>Price ({quoteTicker})</HeaderCell>
+            <HeaderCell>Price</HeaderCell>
             {asks.map(({ price }, i) => (
               <Cell key={i}>{price}</Cell>
             ))}
