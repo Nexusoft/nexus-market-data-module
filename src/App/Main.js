@@ -42,18 +42,18 @@ export default function Main() {
           Price Chart
         </HorizontalTab>
         <HorizontalTab
-          active={activeTab === 'orderbook'}
+          active={activeTab === 'depth'}
           onClick={() => {
-            switchTab('orderbook');
+            switchTab('depth');
           }}
         >
-          Order Book
+          Market Depth
         </HorizontalTab>
       </HorizontalTab.TabBar>
 
       <div>{activeTab === 'summary' && <Summary />}</div>
       <div>{activeTab === 'price' && <PriceAction />}</div>
-      <div>{activeTab === 'orderbook' && <OrderBook />}</div>
+      <div>{activeTab === 'depth' && <OrderBook />}</div>
     </Panel>
   );
 }
