@@ -119,7 +119,7 @@ export const refreshCandles = (pairID) => async (dispatch) => {
 
 const fetchOrderBook = {
   binance: async (symbol) => {
-    const { bids, asks } = await callBinance('depth?limit=25&symbol=' + symbol);
+    const { bids, asks } = await callBinance('depth?limit=50&symbol=' + symbol);
     const normalize = (list) => {
       let total = 0;
       let finalList = [];
