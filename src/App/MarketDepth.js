@@ -2,7 +2,7 @@ import TradingPair from 'components/TradingPair';
 import DepthChart from 'components/DepthChart';
 import { tradingPairIDs } from 'constants';
 
-export default function OrderBook() {
+export default function MarketDepth() {
   return (
     <div>
       {tradingPairIDs.map((pairID) => (

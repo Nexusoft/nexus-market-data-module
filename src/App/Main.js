@@ -6,7 +6,7 @@ import * as TYPE from 'actions/types';
 import RefreshButton from './RefreshButton';
 import Summary from './Summary';
 import PriceAction from './PriceAction';
-import OrderBook from './OrderBook';
+import MarketDepth from './MarketDepth';
 
 export default function Main() {
   const activeTab = useSelector((state) => state.ui.activeTab);
@@ -53,7 +53,7 @@ export default function Main() {
 
       <div>{activeTab === 'summary' && <Summary />}</div>
       <div>{activeTab === 'price' && <PriceAction />}</div>
-      <div>{activeTab === 'depth' && <OrderBook />}</div>
+      <div>{activeTab === 'depth' && <MarketDepth />}</div>
     </Panel>
   );
 }
