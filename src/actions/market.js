@@ -120,16 +120,30 @@ export const refreshCandles = (pairID) => async (dispatch) => {
 const fetchOrderBook = {
   binance: async (symbol) => {
     const { bids, asks } = await callBinance('depth?limit=25&symbol=' + symbol);
-    const normalize = (list) =>
-      list.map(([price, quantity]) => ({ price, quantity }));
+    const normalize = (list) => {
+      let total = 0;
+      let finalList = [];
+      for (const [price, quantity] of list) {
+        total += parseFloat(quantity);
+        finalList.push([parseFloat(price), total]);
+      }
+      return finalList;
+    };
     return { bids: normalize(bids), asks: normalize(asks) };
   },
   bittrex: async (symbol) => {
     const { bid, ask } = await callBittrex(
       `markets/${symbol}/orderbook?depth=25`
     );
-    const normalize = (list) =>
-      list.map(({ quantity, rate }) => ({ quantity, price: rate }));
+    const normalize = (list) => {
+      let total = 0;
+      let finalList = [];
+      for (const { rate, quantity } of list) {
+        total += parseFloat(quantity);
+        finalList.push([parseFloat(rate), total]);
+      }
+      return finalList;
+    };
     return { bids: normalize(bid), asks: normalize(ask) };
   },
 };
