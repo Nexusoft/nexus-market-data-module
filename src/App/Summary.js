@@ -29,7 +29,6 @@ const Value = styled.div({
 
 function ExchangeSummary({ pairID }) {
   const summary = useSelector((state) => state.ui.market.summary?.[pairID]);
-  console.log(pairID, summary);
   const dispatch = useDispatch();
   useEffect(() => {
     // TODO: batch

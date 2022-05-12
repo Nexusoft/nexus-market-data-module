@@ -15,7 +15,6 @@ export default function DepthChart({ pairID }) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.ui.market.orderBook[pairID]);
   const theme = useTheme();
-  console.log(pairID, data);
 
   useEffect(() => {
     // TODO: Batch
