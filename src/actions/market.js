@@ -240,6 +240,8 @@ const fetchOrderBook = {
   },
 };
 
+let orderBookTimer = null;
+
 export const refreshOrderBook = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
   const orderBook = await fetchOrderBook[exchange](symbol);
@@ -248,4 +250,28 @@ export const refreshOrderBook = (pairID) => async (dispatch) => {
     payload: orderBook,
     pairID,
   });
+};
+
+export const refreshOrderBooks = () => (dispatch) => {
+  const action = () =>
+    Promise.allSettled(
+      tradingPairIDs.map(async (pairID) => {
+        const { exchange, symbol } = tradingPairs[pairID];
+        const orderBook = await fetchOrderBook[exchange](symbol);
+        dispatch({
+          type: TYPE.SET_ORDERBOOK,
+          payload: orderBook,
+          pairID,
+        });
+      })
+    );
+
+  clearTimeout(orderBookTimer);
+  action().finally(() => {
+    orderBookTimer = setTimeout(action, interval);
+  });
+};
+
+export const stopOrderBookTimer = () => {
+  clearTimeout(orderBookTimer);
 };
