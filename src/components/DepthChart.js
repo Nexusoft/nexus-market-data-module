@@ -1,10 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import Highcharts from 'highcharts';
-
-import { refreshOrderBook } from 'actions/market';
 
 const Container = styled.div({
   height: 360,
@@ -12,14 +10,8 @@ const Container = styled.div({
 
 export default function DepthChart({ pairID }) {
   const containerRef = useRef();
-  const dispatch = useDispatch();
   const data = useSelector((state) => state.ui.market.orderBook[pairID]);
   const theme = useTheme();
-
-  useEffect(() => {
-    // TODO: Batch
-    dispatch(refreshOrderBook(pairID));
-  }, []);
 
   useEffect(() => {
     if (data) {

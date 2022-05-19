@@ -12,6 +12,7 @@ export default function PriceAction() {
     dispatch(refreshCandlesticks());
     return stopCandlestickTimer;
   }, []);
+
   return (
     <div>
       {tradingPairIDs.map((pairID) => (
