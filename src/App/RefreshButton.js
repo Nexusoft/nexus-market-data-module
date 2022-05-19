@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Icon, Tooltip, Button } from 'nexus-module';
 
-import { tradingPairIDs } from 'constants';
 import {
-  refreshStatus,
-  refresh24hrSummary,
-  refreshCandles,
-  refreshOrderBook,
+  refreshStatuses,
+  refresh24hrSummaries,
+  refreshCandlesticks,
+  refreshOrderBooks,
 } from 'actions/market';
 
 const spin = keyframes`
@@ -28,10 +27,10 @@ function useRefreshMarket() {
     setRefreshing(true);
     try {
       await Promise.allSettled([
-        ...tradingPairIDs.map((pairID) => dispatch(refreshStatus(pairID))),
-        ...tradingPairIDs.map((pairID) => dispatch(refresh24hrSummary(pairID))),
-        ...tradingPairIDs.map((pairID) => dispatch(refreshCandles(pairID))),
-        ...tradingPairIDs.map((pairID) => dispatch(refreshOrderBook(pairID))),
+        dispatch(refreshStatuses()),
+        dispatch(refresh24hrSummaries()),
+        dispatch(refreshCandlesticks()),
+        dispatch(refreshOrderBooks()),
       ]);
     } finally {
       setRefreshing(false);
