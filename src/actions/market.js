@@ -106,21 +106,38 @@ const fetch24hrSummary = {
 
 let summaryTimer = null;
 
-export const refresh24hrSummary = (pairID) => (dispatch) => {
-  const action = async () => {
-    const { exchange, symbol } = tradingPairs[pairID];
-    const summary = await fetch24hrSummary[exchange](symbol);
-    dispatch({
-      type: TYPE.SET_SUMMARY,
-      payload: summary,
-      pairID,
-    });
-  };
+export const refresh24hrSummary = (pairID) => async (dispatch) => {
+  const { exchange, symbol } = tradingPairs[pairID];
+  const summary = await fetch24hrSummary[exchange](symbol);
+  dispatch({
+    type: TYPE.SET_SUMMARY,
+    payload: summary,
+    pairID,
+  });
+};
+
+export const refresh24hrSummaries = () => (dispatch) => {
+  const action = () =>
+    Promise.allSettled(
+      tradingPairIDs.map(async (pairID) => {
+        const { exchange, symbol } = tradingPairs[pairID];
+        const summary = await fetch24hrSummary[exchange](symbol);
+        dispatch({
+          type: TYPE.SET_SUMMARY,
+          payload: summary,
+          pairID,
+        });
+      })
+    );
 
   clearTimeout(summaryTimer);
   action().finally(() => {
     summaryTimer = setTimeout(action, interval);
   });
+};
+
+export const stopSummaryTimer = () => {
+  clearTimeout(summaryTimer);
 };
 
 /**
