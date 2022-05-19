@@ -1,6 +1,6 @@
 import { proxyRequest } from 'nexus-module';
 
-import { tradingPairs } from 'constants';
+import { tradingPairs, tradingPairIDs } from 'constants';
 import * as TYPE from './types';
 
 async function callBinance(path, options) {
@@ -19,6 +19,12 @@ async function callBittrex(path, options) {
   return data;
 }
 
+const interval = 60000;
+
+/**
+ * MARKET STATUS
+ */
+
 const fetchStatus = {
   binance: async (symbol) => {
     const data = await callBinance('exchangeInfo?symbol=' + symbol);
@@ -31,6 +37,8 @@ const fetchStatus = {
   },
 };
 
+let statusTimer = null;
+
 export const refreshStatus = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
   const status = await fetchStatus[exchange](symbol);
@@ -40,6 +48,30 @@ export const refreshStatus = (pairID) => async (dispatch) => {
     pairID,
   });
 };
+
+export const refreshStatuses = () => (dispatch) => {
+  const action = () =>
+    Promise.allSettled(
+      tradingPairIDs.map(async (pairID) => {
+        const { exchange, symbol } = tradingPairs[pairID];
+        const status = await fetchStatus[exchange](symbol);
+        dispatch({
+          type: TYPE.SET_STATUS,
+          payload: status,
+          pairID,
+        });
+      })
+    );
+
+  clearTimeout(statusTimer);
+  action().finally(() => {
+    statusTimer = setTimeout(action, interval);
+  });
+};
+
+/**
+ * MARKET SUMMARY
+ */
 
 const fetch24hrSummary = {
   binance: async (symbol) => {
@@ -72,15 +104,28 @@ const fetch24hrSummary = {
   },
 };
 
-export const refresh24hrSummary = (pairID) => async (dispatch) => {
-  const { exchange, symbol } = tradingPairs[pairID];
-  const summary = await fetch24hrSummary[exchange](symbol);
-  dispatch({
-    type: TYPE.SET_SUMMARY,
-    payload: summary,
-    pairID,
+let summaryTimer = null;
+
+export const refresh24hrSummary = (pairID) => (dispatch) => {
+  const action = async () => {
+    const { exchange, symbol } = tradingPairs[pairID];
+    const summary = await fetch24hrSummary[exchange](symbol);
+    dispatch({
+      type: TYPE.SET_SUMMARY,
+      payload: summary,
+      pairID,
+    });
+  };
+
+  clearTimeout(summaryTimer);
+  action().finally(() => {
+    summaryTimer = setTimeout(action, interval);
   });
 };
+
+/**
+ * CANDLESTICK
+ */
 
 const fetchCandles = {
   binance: async (symbol) => {
@@ -116,6 +161,10 @@ export const refreshCandles = (pairID) => async (dispatch) => {
     pairID,
   });
 };
+
+/**
+ * ORDER BOOK
+ */
 
 const fetchOrderBook = {
   binance: async (symbol) => {
