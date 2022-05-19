@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Panel, HorizontalTab } from 'nexus-module';
 
 import * as TYPE from 'actions/types';
+import { refreshStatuses } from 'actions/market';
 
 import RefreshButton from './RefreshButton';
 import Summary from './Summary';
@@ -17,6 +19,10 @@ export default function Main() {
       payload: tab,
     });
   };
+
+  useEffect(() => {
+    dispatch(refreshStatuses());
+  }, []);
 
   return (
     <Panel
