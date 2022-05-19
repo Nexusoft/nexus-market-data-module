@@ -169,7 +169,9 @@ const fetchCandles = {
   },
 };
 
-export const refreshCandles = (pairID) => async (dispatch) => {
+let candlestickTimer = null;
+
+export const refreshCandlestick = (pairID) => async (dispatch) => {
   const { exchange, symbol } = tradingPairs[pairID];
   const candles = await fetchCandles[exchange](symbol);
   dispatch({
@@ -177,6 +179,30 @@ export const refreshCandles = (pairID) => async (dispatch) => {
     payload: candles,
     pairID,
   });
+};
+
+export const refreshCandlesticks = () => (dispatch) => {
+  const action = () =>
+    Promise.allSettled(
+      tradingPairIDs.map(async (pairID) => {
+        const { exchange, symbol } = tradingPairs[pairID];
+        const candles = await fetchCandles[exchange](symbol);
+        dispatch({
+          type: TYPE.SET_CANDLES,
+          payload: candles,
+          pairID,
+        });
+      })
+    );
+
+  clearTimeout(candlestickTimer);
+  action().finally(() => {
+    candlestickTimer = setTimeout(action, interval);
+  });
+};
+
+export const stopCandlestickTimer = () => {
+  clearTimeout(candlestickTimer);
 };
 
 /**
