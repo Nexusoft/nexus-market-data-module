@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TradingPair from 'components/TradingPair';
-import { refresh24hrSummary } from 'actions/market';
+import { refresh24hrSummaries, stopSummaryTimer } from 'actions/market';
 import { tradingPairs, tradingPairIDs } from 'constants';
 
 const Exchange = styled.div({
@@ -29,12 +29,6 @@ const Value = styled.div({
 
 function ExchangeSummary({ pairID }) {
   const summary = useSelector((state) => state.ui.market.summary?.[pairID]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    // TODO: batch
-    dispatch(refresh24hrSummary(pairID));
-  }, []);
-
   const { baseTicker, quoteTicker } = tradingPairs[pairID];
 
   return (
@@ -75,6 +69,12 @@ function ExchangeSummary({ pairID }) {
 }
 
 export default function Summary() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refresh24hrSummaries());
+    return stopSummaryTimer;
+  }, []);
+
   return (
     <div>
       {tradingPairIDs.map((pairID) => (
