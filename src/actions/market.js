@@ -179,7 +179,7 @@ const fetchCandles = {
     return candles;
   },
   coinstore: async (symbol) => {
-    const { data } = await callBinance(`kline/${symbol}?period=1day`);
+    const { data } = await callCoinstore(`kline/${symbol}?period=1day`);
     const candles = data.item.map(({ startTime, open, high, low, close }) => ({
       time: startTime / 1000,
       open,
@@ -263,7 +263,7 @@ const fetchOrderBook = {
   coinstore: async (symbol) => {
     const {
       data: { a, b },
-    } = await callBittrex(`market/depth/${symbol}?depth=50`);
+    } = await callCoinstore(`market/depth/${symbol}?depth=50`);
     const normalize = (list) => {
       let total = 0;
       let finalList = [];
