@@ -19,6 +19,17 @@ async function callBittrex(path, options) {
   return data;
 }
 
+async function callCoinstore(path, options) {
+  const { data } = await proxyRequest(
+    'https://api.coinstore.com/api/v1/' + path,
+    {
+      method: 'GET',
+      ...options,
+    }
+  );
+  return data;
+}
+
 const interval = 60000;
 
 /**
