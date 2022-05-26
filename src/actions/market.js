@@ -249,6 +249,21 @@ const fetchOrderBook = {
     };
     return { bids: normalize(bid), asks: normalize(ask) };
   },
+  coinstore: async (symbol) => {
+    const {
+      data: { a, b },
+    } = await callBittrex(`market/depth/${symbol}?depth=50`);
+    const normalize = (list) => {
+      let total = 0;
+      let finalList = [];
+      for (const [price, quantity] of list) {
+        total += parseFloat(quantity);
+        finalList.push([parseFloat(price), total]);
+      }
+      return finalList;
+    };
+    return { bids: normalize(b), asks: normalize(a) };
+  },
 };
 
 let orderBookTimer = null;
