@@ -113,6 +113,19 @@ const fetch24hrSummary = {
     };
     return finalSummary;
   },
+  coinstore: async (symbol) => {
+    const { data } = await callCoinstore('market/tickers');
+    const ticker = data.find((item) => item.symbol === symbol);
+    const summary = {
+      lastPrice: ticker.close,
+      change: ticker.priceChangePercent,
+      high: ticker.high,
+      low: ticker.low,
+      volume: ticker.volume,
+      quoteVolume: ticker.quoteVolume,
+    };
+    return summary;
+  },
 };
 
 let summaryTimer = null;
