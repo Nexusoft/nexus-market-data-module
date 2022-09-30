@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "redux-thunk": "^2.3.0",
-    "victory": "^35.8.4"
+    "victory": "^36.6.8"
   }
 }
