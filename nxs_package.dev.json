@@ -1,5 +1,5 @@
 {
-  "name": "_dev_nexus-market-data",
+  "name": "_dev_nexus_market_data",
   "displayName": "Market Data Development",
   "type": "app",
   "entry": "http://localhost:24011/dev.html",

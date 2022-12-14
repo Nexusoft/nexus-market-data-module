@@ -1,5 +1,5 @@
 {
-  "name": "nexus-market-data",
+  "name": "nexus_market_data",
   "displayName": "Market Data",
   "version": "1.0.0",
   "targetWalletVersion": "2.2.0",
