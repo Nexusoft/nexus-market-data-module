@@ -192,7 +192,7 @@ const fetchCandles = {
     return candles;
   },
   coinstore: async (symbol) => {
-    const { data } = await callCoinstore(`kline/${symbol}?period=1day`);
+    const { data } = await callCoinstore(`market/kline/${symbol}?period=1day`);
     const candles = data.item.map(({ startTime, open, high, low, close }) => ({
       time: startTime / 1000,
       open,
