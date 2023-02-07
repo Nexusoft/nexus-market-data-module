@@ -53,7 +53,11 @@ function ExchangeSummary({ pairID }) {
       <Line>
         <div>
           <Label>Change</Label>
-          <Value>{summary ? summary.change + '%' : 'N/A'}</Value>
+          <Value>
+            {summary?.change !== null && summary?.change !== undefined
+              ? summary.change + '%'
+              : 'N/A'}
+          </Value>
         </div>
         <div>
           <Label>Low</Label>
