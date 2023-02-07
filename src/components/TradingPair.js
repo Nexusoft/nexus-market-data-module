@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import StatusIndicator from 'components/StatusIndicator';
 import BinanceLogo from 'components/BinanceLogo';
 import BittrexLogo from 'components/BittrexLogo';
+import CoinstoreLogo from 'components/CoinstoreLogo';
 import { tradingPairs } from 'constants';
 
 const PairSymbol = styled.div(({ theme }) => ({
@@ -18,6 +19,7 @@ const PairSymbol = styled.div(({ theme }) => ({
 const logo = {
   binance: <BinanceLogo className="mr1 v-align" />,
   bittrex: <BittrexLogo className="mr1 v-align" />,
+  coinstore: <CoinstoreLogo className="mr1 v-align" />,
 };
 
 export default function TradingPair({ pairID }) {
