@@ -41,6 +41,8 @@ function isStatusActive(status, exchange) {
 }
 
 export default function StatusIndicator({ status, exchange }) {
+  if (!status) return null;
+
   return (
     <Tooltip.Trigger tooltip={'Wallet status: ' + (status || 'Unknown')}>
       <StatusIcon active={isStatusActive(status, exchange)} />
