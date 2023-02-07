@@ -114,15 +114,19 @@ const fetch24hrSummary = {
     return finalSummary;
   },
   coinstore: async (symbol) => {
-    const { data } = await callCoinstore('market/tickers');
-    const ticker = data.find((item) => item.symbol === symbol);
+    const [tickersRes, priceRes] = await Promise.all([
+      callCoinstore('market/tickers'),
+      callCoinstore(`ticker/price;symbol=${symbol}`),
+    ]);
+    const ticker = tickersRes.data.find((item) => item.symbol === symbol);
+    const price = priceRes.data.find((item) => item.symbol === symbol)?.price;
     const summary = {
-      lastPrice: ticker.close,
-      change: ticker.priceChangePercent,
-      high: ticker.high,
-      low: ticker.low,
-      volume: ticker.volume,
-      quoteVolume: ticker.quoteVolume,
+      lastPrice: price,
+      change: null,
+      high: ticker?.high,
+      low: ticker?.low,
+      volume: ticker?.volume,
+      quoteVolume: ticker?.amount,
     };
     return summary;
   },
