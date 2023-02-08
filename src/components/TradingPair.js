@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
 
+import ExchangeImg from 'components/ExchangeImg';
 import StatusIndicator from 'components/StatusIndicator';
-import BinanceLogo from 'components/BinanceLogo';
-import BittrexLogo from 'components/BittrexLogo';
-import CoinstoreLogo from 'components/CoinstoreLogo';
+import { useDark } from 'utils';
 import { tradingPairs } from 'constants';
 
 const PairSymbol = styled.div(({ theme }) => ({
@@ -16,22 +15,48 @@ const PairSymbol = styled.div(({ theme }) => ({
   marginRight: '1em',
 }));
 
-const logo = {
-  binance: <BinanceLogo className="mr1 v-align" />,
-  bittrex: <BittrexLogo className="mr1 v-align" />,
-  coinstore: <CoinstoreLogo className="mr1 v-align" />,
+function BittrexLogo(props) {
+  const dark = useDark();
+  return (
+    <ExchangeImg
+      src={dark ? 'icons/BittrexLogo.png' : 'icons/BittrexLogo-light.png'}
+      style={{
+        height: 40,
+      }}
+      {...props}
+    />
+  );
+}
+
+function CoinstoreLogo(props) {
+  const dark = useDark();
+  return (
+    <ExchangeImg
+      src={dark ? 'icons/coinstore-logo.png' : 'icons/coinstore-logo-light.png'}
+      {...props}
+    />
+  );
+}
+
+const logoComponent = {
+  bittrex: BittrexLogo,
+  coinstore: CoinstoreLogo,
 };
 
 export default function TradingPair({ pairID }) {
-  const { exchange, baseTicker, quoteTicker } = tradingPairs[pairID];
+  const { exchange, baseTicker, quoteTicker, url } = tradingPairs[pairID];
   const status = useSelector((state) => state.ui.market.status[pairID]);
+  const Logo = logoComponent[exchange];
+
   return (
-    <div>
-      {logo[exchange]}
-      <PairSymbol>
-        {baseTicker}/{quoteTicker}
-      </PairSymbol>
-      <StatusIndicator status={status} exchange={exchange} />
-    </div>
+    <a href={url}>
+      <div>
+        <Logo className="mr1 v-align" />
+        <PairSymbol>
+          {baseTicker}/{quoteTicker}
+        </PairSymbol>
+        <StatusIndicator status={status} exchange={exchange} />
+      </div>
+    </a>
   );
 }
