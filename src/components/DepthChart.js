@@ -10,8 +10,9 @@ const Container = styled.div({
 
 export default function DepthChart({ pairID }) {
   const containerRef = useRef();
-  const data = useSelector((state) => state.ui.market.orderBook[pairID]);
   const theme = useTheme();
+  const data = useSelector((state) => state.ui.market.orderBook[pairID]);
+  const lowestAskPrice = data.asks[0]?.[0];
 
   useEffect(() => {
     if (data) {
@@ -41,6 +42,7 @@ export default function DepthChart({ pairID }) {
               color: theme.mixer(0.75),
             },
           },
+          ceiling: lowestAskPrice ? lowestAskPrice * 2 : undefined,
         },
         yAxis: [
           {
