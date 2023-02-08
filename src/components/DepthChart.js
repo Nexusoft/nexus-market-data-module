@@ -19,7 +19,7 @@ export default function DepthChart({ pairID }) {
       Highcharts.chart(containerRef.current, {
         chart: {
           type: 'area',
-          zoomType: 'xy',
+          zoomType: 'x',
           backgroundColor: theme.lower(theme.background, 0.15),
           borderWidth: 0,
         },
