@@ -9,11 +9,13 @@
   "icon": "dist/icons/chart.svg",
   "files": [
     "dist/index.html",
-    "dist/icons/chart.svg",
     "dist/js/app.js",
+    "dist/icons/chart.svg",
     "dist/icons/syncing.svg",
     "dist/icons/BittrexLogo.png",
-    "dist/icons/BINANCE.png"
+    "dist/icons/BittrexLogo-light.png",
+    "dist/icons/coinstore-logo.png",
+    "dist/icons/coinstore-logo-light.png"
   ],
   "author": {
     "name": "Nexus Team",
