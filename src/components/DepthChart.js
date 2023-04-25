@@ -12,7 +12,7 @@ export default function DepthChart({ pairID }) {
   const containerRef = useRef();
   const theme = useTheme();
   const data = useSelector((state) => state.ui.market.orderBook[pairID]);
-  const lowestAskPrice = data.asks[0]?.[0];
+  const lowestAskPrice = data?.asks?.[0]?.[0];
 
   useEffect(() => {
     if (data) {
