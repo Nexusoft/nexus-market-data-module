@@ -30,6 +30,14 @@ async function callCoinstore(path, options) {
   return data;
 }
 
+async function callTradeOgre(path, options) {
+  const { data } = await proxyRequest('https://tradeogre.com/api/v1/' + path, {
+    method: 'GET',
+    ...options,
+  });
+  return data;
+}
+
 const interval = 60000;
 
 /**
@@ -127,6 +135,21 @@ const fetch24hrSummary = {
       low: ticker?.low,
       volume: ticker?.volume,
       quoteVolume: ticker?.amount,
+    };
+    return summary;
+  },
+  tradeogre: async (symbol) => {
+    const data = await callTradeOgre('ticker/' + symbol);
+    const summary = {
+      lastPrice: data.price,
+      change:
+        Math.round(
+          (10000 * (data.price - data.initialprice)) / data.initialprice
+        ) / 100,
+      high: data.high,
+      low: data.low,
+      volume: null,
+      quoteVolume: data.volume,
     };
     return summary;
   },
@@ -291,6 +314,21 @@ const fetchOrderBook = {
       return finalList;
     };
     return { bids: normalize(b), asks: normalize(a) };
+  },
+  tradeogre: async (symbol) => {
+    const { buy, sell } = await callTradeOgre('orders/' + symbol);
+    const normalize = (list) => {
+      let total = 0;
+      let finalList = [];
+      for (const [price, quantity] of list) {
+        total += parseFloat(quantity);
+        finalList.push([parseFloat(price), total]);
+      }
+      return finalList;
+    };
+    const bids = Object.entries(buy).sort(([p1, q1], [p2, q2]) => p2 - p1);
+    const asks = Object.entries(sell).sort(([p1, q1], [p2, q2]) => p1 - p2);
+    return { bids: normalize(bids), asks: normalize(asks) };
   },
 };
 
