@@ -27,6 +27,19 @@ const Value = styled.div({
   fontSize: 24,
 });
 
+function SummaryValue({ summary, prop, percentage }) {
+  if (!summary) {
+    return <Value>N/A</Value>;
+  }
+
+  const value = summary?.[prop];
+  if (value === null || value === undefined) {
+    return <Value>N/A</Value>;
+  }
+
+  return <Value>{value + (percentage ? '%' : '')}</Value>;
+}
+
 function ExchangeSummary({ pairID }) {
   const summary = useSelector((state) => state.ui.market.summary?.[pairID]);
   const { baseTicker, quoteTicker } = tradingPairs[pairID];
@@ -39,33 +52,29 @@ function ExchangeSummary({ pairID }) {
       <Line>
         <div>
           <Label>Last price</Label>
-          <Value>{summary ? summary.lastPrice : 'N/A'}</Value>
+          <SummaryValue summary={summary} prop="lastPrice" />
         </div>
         <div>
           <Label>High</Label>
-          <Value>{summary ? summary.high : 'N/A'}</Value>
+          <SummaryValue summary={summary} prop="high" />
         </div>
         <div>
           <Label>Volume ({baseTicker})</Label>
-          <Value>{summary ? summary.volume : 'N/A'}</Value>
+          <SummaryValue summary={summary} prop="volume" />
         </div>
       </Line>
       <Line>
         <div>
           <Label>Change</Label>
-          <Value>
-            {summary?.change !== null && summary?.change !== undefined
-              ? summary.change + '%'
-              : 'N/A'}
-          </Value>
+          <SummaryValue summary={summary} prop="change" percentage />
         </div>
         <div>
           <Label>Low</Label>
-          <Value>{summary ? summary.low : 'N/A'}</Value>
+          <SummaryValue summary={summary} prop="low" />
         </div>
         <div>
           <Label>Volume ({quoteTicker})</Label>
-          <Value>{summary ? summary.quoteVolume : 'N/A'}</Value>
+          <SummaryValue summary={summary} prop="quoteVolume" />
         </div>
       </Line>
     </Exchange>
