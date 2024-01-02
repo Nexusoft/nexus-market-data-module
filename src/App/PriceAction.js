@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import TradingPair from 'components/TradingPair';
 import CandlestickChart from 'components/CandlestickChart';
-import { tradingPairIDs } from 'constants';
+import { tradingPairIDs, tradingPairs } from 'constants';
 import { refreshCandlesticks, stopCandlestickTimer } from 'actions/market';
 
 export default function PriceAction() {
@@ -20,9 +20,15 @@ export default function PriceAction() {
           <div>
             <TradingPair pairID={pairID} />
           </div>
-          <div className="mt1">
-            <CandlestickChart pairID={pairID} />
-          </div>
+          {tradingPairs[pairID]?.priceChartUnavailable ? (
+            <div className="mt1 mb3 text-center dim">
+              Price chart is unavailable for this exchange
+            </div>
+          ) : (
+            <div className="mt1">
+              <CandlestickChart pairID={pairID} />
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -30,6 +30,7 @@ export const tradingPairs = {
       precision: 8,
       minMove: 0.00000001,
     },
+    priceChartUnavailable: true,
   },
   'coinstore:NXSUSDT': {
     exchange: 'coinstore',
