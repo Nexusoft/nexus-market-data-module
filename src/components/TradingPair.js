@@ -38,9 +38,22 @@ function CoinstoreLogo(props) {
   );
 }
 
+function TradeOgreLogo(props) {
+  return (
+    <ExchangeImg
+      src={'icons/tradeogre-logo.svg'}
+      style={{
+        height: 40,
+      }}
+      {...props}
+    />
+  );
+}
+
 const logoComponent = {
   bittrex: BittrexLogo,
   coinstore: CoinstoreLogo,
+  tradeogre: TradeOgreLogo,
 };
 
 export default function TradingPair({ pairID }) {
