@@ -13,6 +13,7 @@ export default function DepthChart({ pairID }) {
   const theme = useTheme();
   const data = useSelector((state) => state.ui.market.orderBook[pairID]);
   const lowestAskPrice = data?.asks?.[0]?.[0];
+  const highestBidPrice = data?.bids?.[0]?.[0];
 
   useEffect(() => {
     if (data) {
@@ -43,6 +44,7 @@ export default function DepthChart({ pairID }) {
             },
           },
           ceiling: lowestAskPrice ? lowestAskPrice * 2 : undefined,
+          floor: highestBidPrice ? highestBidPrice * 0.1 : undefined,
         },
         yAxis: [
           {
