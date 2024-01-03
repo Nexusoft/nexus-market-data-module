@@ -38,7 +38,6 @@ function TradeOgreLogo(props) {
 }
 
 const logoComponent = {
-  bittrex: BittrexLogo,
   coinstore: CoinstoreLogo,
   tradeogre: TradeOgreLogo,
 };

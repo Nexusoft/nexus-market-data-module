@@ -12,8 +12,6 @@
     "dist/js/app.js",
     "dist/icons/chart.svg",
     "dist/icons/syncing.svg",
-    "dist/icons/BittrexLogo.png",
-    "dist/icons/BittrexLogo-light.png",
     "dist/icons/coinstore-logo.png",
     "dist/icons/coinstore-logo-light.png"
   ],
