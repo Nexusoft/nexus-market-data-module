@@ -13,7 +13,8 @@
     "dist/icons/chart.svg",
     "dist/icons/syncing.svg",
     "dist/icons/coinstore-logo.png",
-    "dist/icons/coinstore-logo-light.png"
+    "dist/icons/coinstore-logo-light.png",
+    "dist/icons/tradeogre-logo.svg"
   ],
   "author": {
     "name": "Nexus Team",
