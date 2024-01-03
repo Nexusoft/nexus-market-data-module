@@ -15,19 +15,6 @@ const PairSymbol = styled.div(({ theme }) => ({
   marginRight: '1em',
 }));
 
-function BittrexLogo(props) {
-  const dark = useDark();
-  return (
-    <ExchangeImg
-      src={dark ? 'icons/BittrexLogo.png' : 'icons/BittrexLogo-light.png'}
-      style={{
-        height: 40,
-      }}
-      {...props}
-    />
-  );
-}
-
 function CoinstoreLogo(props) {
   const dark = useDark();
   return (
