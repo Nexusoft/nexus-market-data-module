@@ -1,7 +1,7 @@
 {
   "name": "nexus_market_data",
   "displayName": "Market Data",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "targetWalletVersion": "3.1.0",
   "description": "Market Data of Nexus trading on major exchanges",
   "type": "app",
