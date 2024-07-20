@@ -1,7 +1,7 @@
 {
   "name": "nexus_market_data",
   "displayName": "Market Data",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "targetWalletVersion": "3.1.0",
   "description": "Market Data of Nexus trading on major exchanges",
   "type": "app",
@@ -14,7 +14,8 @@
     "dist/icons/syncing.svg",
     "dist/icons/coinstore-logo.png",
     "dist/icons/coinstore-logo-light.png",
-    "dist/icons/tradeogre-logo.svg"
+    "dist/icons/tradeogre-logo.svg",
+    "dist/icons/xeggex-logo.svg"
   ],
   "author": {
     "name": "Nexus Team",

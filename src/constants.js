@@ -32,6 +32,30 @@ export const tradingPairs = {
     },
     priceChartUnavailable: true,
   },
+  'xeggex:NXS-BTC': {
+    exchange: 'xeggex',
+    symbol: 'NXS_BTC',
+    baseTicker: 'NXS',
+    quoteTicker: 'BTC',
+    url: 'https://xeggex.com/market/NXS_BTC',
+    priceFormat: {
+      precision: 8,
+      minMove: 0.00000001,
+    },
+    priceChartUnavailable: false,
+  },
+  'xeggex:NXS-USDT': {
+    exchange: 'xeggex',
+    symbol: 'NXS_USDT',
+    baseTicker: 'NXS',
+    quoteTicker: 'USDT',
+    url: 'https://xeggex.com/market/NXS_USDT',
+    priceFormat: {
+      precision: 3,
+      minMove: 0.0001,
+    },
+    priceChartUnavailable: false,
+  },
   'coinstore:NXSUSDT': {
     exchange: 'coinstore',
     symbol: 'NXSUSDT',

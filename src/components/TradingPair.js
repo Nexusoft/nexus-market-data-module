@@ -37,9 +37,22 @@ function TradeOgreLogo(props) {
   );
 }
 
+function XeggeXLogo(props) {
+  return (
+    <ExchangeImg
+      src={'icons/xeggex-logo.svg'}
+      style={{
+        height: 40,
+      }}
+      {...props}
+    />
+  );
+}
+
 const logoComponent = {
   coinstore: CoinstoreLogo,
   tradeogre: TradeOgreLogo,
+  xeggex: XeggeXLogo,
 };
 
 export default function TradingPair({ pairID }) {
