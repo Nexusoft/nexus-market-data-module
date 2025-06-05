@@ -6,7 +6,6 @@
     "@babel/core": "^7.16.5",
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
     "@babel/plugin-transform-react-constant-elements": "^7.16.5",
-    "@babel/plugin-transform-react-inline-elements": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
     "@babel/register": "^7.16.5",
