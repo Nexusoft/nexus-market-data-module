@@ -1,6 +1,6 @@
 {
   "name": "market_data_module",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "This is an example of how a Nexus Module can be built with React",
   "devDependencies": {
     "@babel/core": "^7.27.4",
