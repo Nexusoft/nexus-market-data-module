@@ -1,5 +1,5 @@
-import path from 'path';
-import baseConfig from './webpack.config.babel';
+const path = require('path');
+const baseConfig = require('./webpack.config.babel');
 
 const port = 24011;
 const publicPath = `http://localhost:${port}/`;
@@ -21,4 +21,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;

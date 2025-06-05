@@ -1,4 +1,4 @@
-const browserslistQuery = require('nexus-module').browserslistQuery;
+const browserslistQuery = require('nexus-module/lib/browserslistQuery').default;
 
 const reactOptimizePreset = [
   '@babel/plugin-transform-react-constant-elements',
