@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import Highcharts from 'highcharts';
+import { escapeENotation } from 'utils';
+import { tradingPairs } from 'constants';
 
 const Container = styled.div({
   height: 360,
@@ -14,7 +16,8 @@ export default function DepthChart({ pairID }) {
   const data = useSelector((state) => state.ui.market.orderBook[pairID]);
   const lowestAskPrice = data?.asks?.[0]?.[0];
   const highestBidPrice = data?.bids?.[0]?.[0];
-
+  const pairPercision = tradingPairs[pairID]?.priceFormat?.precision || 8;
+  
   useEffect(() => {
     if (data) {
       Highcharts.chart(containerRef.current, {
@@ -35,6 +38,12 @@ export default function DepthChart({ pairID }) {
           labels: {
             style: {
               color: theme.mixer(0.75),
+            },
+            formatter: function () {
+              const label = this.axis.defaultLabelFormatter.call(this);
+              return escapeENotation(
+                Number(label),pairPercision
+              );
             },
           },
           title: {
@@ -87,6 +96,17 @@ export default function DepthChart({ pairID }) {
         },
         tooltip: {
           headerFormat: '<span>Price: {point.key}</span><br>',
+          formatter: function (tooltip) {
+            return tooltip.defaultFormatter.call(
+              {
+                ...this,
+                key: escapeENotation(
+                  this.key,pairPercision
+                ),
+              },
+              tooltip
+            );
+          },
           valueDecimals: 2,
         },
         series: [

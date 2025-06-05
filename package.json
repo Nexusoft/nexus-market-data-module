@@ -1,7 +1,7 @@
 {
   "name": "market_data_module",
   "version": "1.4.0",
-  "description": "This is an example of how a Nexus Module can be built with React",
+  "description": "Market Data of Nexus trading on major exchanges",
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
@@ -24,12 +24,12 @@
     "dev": "cross-env NODE_ENV=development webpack serve --config webpack-dev.config.babel.js"
   },
   "dependencies": {
-    "highcharts": "^10.1.0",
+    "highcharts": "^10.3.3",
     "lightweight-charts": "^3.8.0",
     "nexus-module": "^1.1.11",
-    "react-redux": "^7.2.6",
+    "react-redux": "^7.2.9",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1",
-    "victory": "^36.2.0"
+    "redux-thunk": "^2.4.2",
+    "victory": "^36.9.2"
   }
 }

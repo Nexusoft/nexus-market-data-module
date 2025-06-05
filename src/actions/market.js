@@ -38,6 +38,14 @@ async function callTradeOgre(path, options) {
   return data;
 }
 
+async function callXeggex(path, options) {
+  const { data } = await proxyRequest('https://api.xeggex.com/api/v2/' + path, {
+    method: 'GET',
+    ...options,
+  });
+  return data;
+}
+
 const interval = 60000;
 
 /**
@@ -153,6 +161,18 @@ const fetch24hrSummary = {
     };
     return summary;
   },
+  xeggex: async (symbol) => {
+    const data = await callXeggex('market/getbysymbol/' + symbol);
+    const summary = {
+      lastPrice: data.lastPrice,
+      change: data.changePercent,
+      high: data.highPrice,
+      low: data.lowPrice,
+      volume: data.volume,
+      quoteVolume: data.volumeSecondary,
+    };
+    return summary;
+  },
 };
 
 let summaryTimer = null;
@@ -222,6 +242,20 @@ const fetchCandles = {
     const { data } = await callCoinstore(`market/kline/${symbol}?period=1day`);
     const candles = data.item.map(({ startTime, open, high, low, close }) => ({
       time: startTime / 1000,
+      open,
+      high,
+      low,
+      close,
+    }));
+    return candles;
+  },
+  xeggex: async (symbol) => {
+    const { bars, meta } = await callXeggex(
+      `market/candles?symbol=${symbol}&resolution=${60}&countBack=${100}&firstDataRequest=1`
+    );
+    if (meta?.noData) return;
+    const candles = bars.map(({ time, close, open, high, low, volume }) => ({
+      time: time / 1000,
       open,
       high,
       low,
@@ -328,6 +362,21 @@ const fetchOrderBook = {
     };
     const bids = Object.entries(buy).sort(([p1, q1], [p2, q2]) => p2 - p1);
     const asks = Object.entries(sell).sort(([p1, q1], [p2, q2]) => p1 - p2);
+    return { bids: normalize(bids), asks: normalize(asks) };
+  },
+  xeggex: async (symbol) => {
+    const { bids, asks } = await callXeggex(
+      'market/getorderbookbysymbol/' + symbol
+    );
+    const normalize = (list) => {
+      let total = 0;
+      let finalList = [];
+      for (const { price, quantity } of list) {
+        total += parseFloat(quantity);
+        finalList.push([parseFloat(price), total]);
+      }
+      return finalList;
+    };
     return { bids: normalize(bids), asks: normalize(asks) };
   },
 };
